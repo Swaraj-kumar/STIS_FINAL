@@ -13,7 +13,7 @@ const ConferenceRegistration = () => {
   const handleLogin = async () => {
     setMessage("");
     try {
-      const response = await axios.post("http://localhost:5000/login", {
+      const response = await axios.post("https://stisv.onrender.com/login", {
         email,
         password,
       });

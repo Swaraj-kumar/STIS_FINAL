@@ -32,7 +32,7 @@ const ForgotPassword = () => {
     }
   
     try {
-      const response = await axios.post("http://localhost:5000/reset-password", {
+      const response = await axios.post("https://stisv.onrender.com/reset-password", {
         email,
         newPassword,
       });
