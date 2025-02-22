@@ -1,0 +1,237 @@
+.electricity-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    width: 100%;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    animation: slideIn 0.5s ease-out;
+}
+
+.main-title {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 15px;
+    animation: fadeInUp 1.5s ease-out, pulse 2s infinite;
+}
+
+.main-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, #3498db, #2c3e50);
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.tab-button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #f0f2f5;
+    color: #2c3e50;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.tab-button:hover {
+    background-color: #e2e8f0;
+    transform: translateY(-2px);
+}
+
+.tab-button.active {
+    background-color: #2c3e50;
+    color: white;
+    box-shadow: 0 4px 12px rgba(44, 62, 80, 0.15);
+}
+
+.info-section {
+    margin: 2rem 0;
+    padding: 2rem;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.info-section h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.main-content {
+    font-size: 1.1rem;
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.details-list {
+    list-style: none;
+    padding: 0;
+}
+
+.detail-item {
+    padding: 0.5rem 0;
+    color: #4a5568;
+    position: relative;
+    padding-left: 1.5rem;
+    animation: slideInLeft 0.5s ease-out;
+}
+
+.detail-item::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #2c3e50;
+}
+
+.interactive-section {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.adaptor-button {
+    padding: 1rem 2rem;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.adaptor-button:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+.adaptor-guide {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f8fafc;
+    border-radius: 8px;
+    animation: slideDown 0.3s ease-out;
+}
+
+.adaptor-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.shop-link {
+    padding: 0.5rem 1rem;
+    background-color: #27ae60;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.shop-link:hover {
+    background-color: #219a52;
+    transform: translateY(-2px);
+}
+
+.safety-note {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+    border-radius: 4px;
+}
+
+.safety-note h3 {
+    color: #856404;
+    margin-bottom: 0.5rem;
+}
+
+.safety-note p {
+    color: #856404;
+    margin: 0;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 1rem;
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tab-button {
+        width: 100%;
+    }
+
+    .main-title {
+        font-size: 2rem;
+    }
+
+    .adaptor-links {
+        flex-direction: column;
+    }
+}

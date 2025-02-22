@@ -1,0 +1,155 @@
+.bengaluru-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 80vh;
+    text-align: center;
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: whitesmoke;
+}
+
+.bengaluru-header {
+    background-color: #1a365d;
+    color: white;
+    padding: 2rem 1rem;
+    margin: -50px -20px 0;
+    animation: fadeIn 1s ease-out;
+}
+
+.bengaluru-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+    animation: fadeInUp 1.5s ease-out, pulse 2s infinite;
+
+}
+
+.bengaluru-header p {
+    font-size: 1.2rem;
+    color: white;
+    text-align: center;
+}
+
+.bengaluru-navigation {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    margin: 0 -20px;
+}
+
+.navigation-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow-x: auto;
+}
+
+.navigation-buttons {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem;
+}
+
+.nav-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    background-color: #f3f4f6;
+}
+
+.nav-button:hover {
+    background-color: #e5e7eb;
+}
+
+.nav-button.active {
+    background-color: #1a365d;
+    color: white;
+}
+
+.content-section {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    text-align: left;
+}
+
+.category-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.content-item {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    animation: fadeIn 0.5s ease-out;
+    text-align: center;
+}
+
+.content-item:last-child {
+    border-bottom: none;
+}
+
+.content-item h2 {
+    color: #1a365d;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.content-item p {
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+.attribution {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    color: #666;
+}
+
+.attribution a {
+    color: #1a365d;
+    text-decoration: none;
+}
+
+.attribution a:hover {
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .bengaluru-header h1 {
+        font-size: 2rem;
+    }
+
+    .bengaluru-header p {
+        font-size: 1rem;
+    }
+
+    .content-section {
+        padding: 1rem;
+    }
+
+    .content-item h2 {
+        font-size: 1.25rem;
+    }
+}

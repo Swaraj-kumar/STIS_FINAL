@@ -1,0 +1,337 @@
+/* Fixed Navbar Styling */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: whitesmoke;
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+}
+
+.navbar-logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.navbar-logo img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.navbar-logo .logo-text {
+  color: inherit; /* This will prevent the text from becoming blue */
+  margin-left: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navbar-items {
+  font-weight: bold;
+  width: 100%;
+  white-space: nowrap;
+  margin: 0;
+  gap: 5px;
+  list-style: none;
+}
+
+.conference-registration-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff; /* Blue color */
+  color: white;
+  border-radius: 25px; /* Rounded edges */
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.conference-registration-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+.conference-registration-button:active {
+  transform: scale(0.98); /* Slight press effect */
+}
+
+/* Code for navbar Registration ended */
+
+.navbar-items a,
+.dropdown-toggle {
+  color: #333;
+  padding: 8px 15px;
+  text-decoration: none;
+  font-size: 1em;
+  text-align: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  white-space: nowrap;
+  margin: 0;
+  font-weight: normal;
+}
+
+.dropdown-toggle {
+  width: auto;
+  white-space: nowrap;
+  margin: 0;
+  gap: 5px;
+}
+
+.logo-text {
+  color: #333 !important;
+}
+
+.navbar-items a:hover,
+.dropdown-toggle:hover {
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}
+
+/* Dropdown Styles */
+.navbar-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
+/* Adjust position for dropdowns that might go off-screen on the right */
+.navbar-items li:nth-last-child(-n+2) .dropdown-menu {
+  left: auto;
+  right: 0;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-menu a {
+  color: #333;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+  white-space: nowrap;
+  font-weight: normal;
+  /* Reset font weight for dropdown items */
+}
+
+.dropdown-menu a:hover {
+  background-color: #e0e0e0;
+}
+
+/* Scrollbar styling for dropdown menus */
+.dropdown-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Mobile Menu Toggle */
+.navbar-toggle {
+  display: none;
+  font-size: 1.8em;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 1024px) {
+  .navbar-items {
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: whitesmoke;
+    display: none;
+    align-items: center;
+    padding: 10px 0;
+    gap: 5px;
+  }
+
+  .navbar-items.active {
+    display: flex;
+  }
+
+  .navbar-items a,
+  .dropdown-toggle {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 12px 15px;
+    margin: 0;
+  }
+
+  .navbar-dropdown {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-toggle {
+    display: block;
+  }
+
+  .dropdown-menu {
+    max-height: none;
+    overflow-y: visible;
+    position: static;
+    width: 100%;
+  }
+
+  .dropdown-menu a {
+    padding: 12px 15px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dropdown-menu.show {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Desktop layout */
+@media screen and (min-width: 1025px) {
+  .navbar-items {
+    flex-direction: row;
+    position: static;
+    width: auto;
+    display: flex;
+  }
+
+  .navbar-items a,
+  .dropdown-toggle {
+    width: auto;
+    text-align: left;
+  }
+
+  .navbar-dropdown {
+    width: auto;
+  }
+
+  .navbar-toggle {
+    display: none;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+  }
+}
+
+/* Small screens */
+@media screen and (max-width: 400px) {
+  .navbar {
+    padding: 5px 10px;
+  }
+
+  .navbar-logo {
+    font-size: 1.2em;
+  }
+
+  .navbar-logo img {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+  }
+
+  .navbar-toggle {
+    font-size: 1.5em;
+  }
+
+  .navbar-items {
+    top: 45px;
+    gap: 3px;
+  }
+
+  .navbar-items a,
+  .dropdown-toggle,
+  .dropdown-menu a {
+    font-size: 0.9em;
+    padding: 8px 10px;
+  }
+
+  .dropdown-menu {
+    min-width: 140px;
+  }
+}
+
+/* MacBook Air and similar screen sizes */
+@media screen and (min-width: 1280px) and (max-width: 1440px) {
+  .navbar {
+    padding: 10px 3%;
+  }
+
+  .navbar-items a,
+  .dropdown-toggle {
+    padding: 8px 12px;
+    font-size: 0.95em;
+  }
+
+  .navbar-logo {
+    font-size: 1.3em;
+  }
+
+  .navbar-logo img {
+    width: 35px;
+    height: auto;
+  }
+}

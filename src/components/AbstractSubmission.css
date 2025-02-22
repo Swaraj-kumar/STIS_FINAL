@@ -1,0 +1,68 @@
+/* AbstractSubmission.css */
+.abstract-submission-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .error-message {
+    color: #ff4d4f; /* Red color for error */
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+
+  .abstract-submission-container h1 {
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .abstract-submission-container p {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  .abstract-submission-container a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .abstract-submission-container a:hover {
+    text-decoration: underline;
+  }
+  
+  .abstract-submission-container ul {
+    list-style-type: none; /* Removes the dots */
+    padding-left: 0; /* Ensures there is no indentation */
+  }
+  
+
+
+  
+  
+  .submit-abstract-button {
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  
+  .submit-abstract-button:hover {
+    background-color: #0056b3;
+  }
+  

@@ -1,0 +1,163 @@
+.venue-container {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: whitesmoke;
+}
+
+.venue-heading {
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+  padding-bottom: 15px;
+  animation: fadeInUp 1.5s ease-out, pulse 2s infinite;
+}
+
+.venue-heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(to right, #3498db, #2c3e50);
+}
+
+.venue-description {
+  text-align: justify;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+  color: #444;
+}
+
+.location-section {
+  text-align: center;
+}
+
+.location-heading {
+  font-size: 2.5rem;
+  margin: 40px 0;
+  color: #2c3e50;
+  animation: fadeInUp 1.5s ease-out 0.5s both;
+}
+
+.map-container {
+  height: 400px;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  /* Ensure map has rounded corners */
+  overflow: hidden;
+  /* Ensures no content overflow */
+}
+
+.directions-button {
+  background-color: #23a6d5;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInScale 1s ease-out 0.5s backwards;
+}
+
+.directions-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent);
+  transition: all 0.4s;
+}
+
+.directions-button:hover {
+  background-color: #e73c7e;
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  animation: glowPulse 1.5s infinite;
+}
+
+.directions-button:hover::before {
+  left: 100%;
+}
+
+@media (max-width: 768px) {
+  .venue-heading {
+    font-size: 2rem;
+    /* Adjust font size for smaller screens */
+  }
+
+  .location-heading {
+    font-size: 1.8rem;
+    /* Adjust font size for smaller screens */
+  }
+
+  .map-container {
+    height: 300px;
+    /* Adjust height for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .venue-heading {
+    font-size: 1.5rem;
+    /* Further adjust font size for very small screens */
+  }
+
+  .location-heading {
+    font-size: 1.4rem;
+    /* Further adjust font size for very small screens */
+  }
+
+  .map-container {
+    height: 250px;
+    /* Adjust height for very small screens */
+  }
+
+  .directions-button {
+    font-size: 0.9rem;
+    /* Smaller font size for very small screens */
+    padding: 8px 16px;
+    /* Adjust padding for smaller screens */
+  }
+}
+
+/* Keyframe animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
