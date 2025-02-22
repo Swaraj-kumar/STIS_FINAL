@@ -10,7 +10,7 @@ const { v4: uuidv4 } = require("uuid");
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 5000;
 
 // Create uploads directory if it doesn't exist
 const uploadDir = "C:/uploads";
