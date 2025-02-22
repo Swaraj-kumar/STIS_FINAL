@@ -167,7 +167,7 @@ function Navbar() {
           onMouseEnter={() => handleMouseEnter("registration")}
           onMouseLeave={handleMouseLeave}
         >
-          <button className="dropdown-toggle" onClick={() => toggleDropdown("registration")}>
+          {/* <button className="dropdown-toggle" onClick={() => toggleDropdown("registration")}>
             Registration
           </button>
           <div className={`dropdown-menu ${activeDropdown === "registration" ? "show" : ""}`}>
@@ -177,7 +177,7 @@ function Navbar() {
             <NavLink to="/interest" onClick={() => handleDropdownClick("/interest")}>
               Expression of Interest
             </NavLink>
-          </div>
+          </div> */}
         </li>
         <li className="navbar-dropdown">
           <NavLink to="/committee" onClick={() => handleDropdownClick("/committee")}>
@@ -229,6 +229,9 @@ function Navbar() {
             </NavLink>
             <NavLink to="/tours-and-social-events" onClick={() => handleDropdownClick("/tours-and-social-events")}>
               Tours and Social Events
+            </NavLink>
+            <NavLink to="/interest" onClick={() => handleDropdownClick("/interest")}>
+              Expression of Interest
             </NavLink>
           </div>
         </li>
