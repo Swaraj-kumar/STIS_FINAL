@@ -17,8 +17,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;  /* Centers content vertically */
-  min-height: 100vh;        /* Full viewport height */
+  justify-content: center; /* Centers content vertically */
+  min-height: 100vh; /* Full viewport height */
   padding: 20px;
 }
 
@@ -33,7 +33,7 @@ body {
 
 /* LOGIN CONTAINER (CARD) */
 .login-container {
-  background-color: #fff; 
+  background-color: #fff;
   width: 100%;
   max-width: 400px;
   padding: 2rem;
@@ -63,17 +63,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 12px 0 20px; /* Space below the checkbox row */
-  font-size: 0.9rem;
-  color: #333;
+  gap: 10px; /* Adjusted for better spacing */
+  flex-wrap: nowrap; /* Prevents checkbox and text from breaking apart */
+  width: 100%;
 }
 
-/* Checkbox and label together */
-.remember-forgot label {
+/* Ensures checkbox & label stay together */
+.remember-me-container {
   display: flex;
   align-items: center;
-  cursor: pointer;
-  gap: 5px; /* Minimal gap between checkbox and text */
+  gap: 5px;
 }
 
 /* Checkbox styling */
@@ -90,7 +89,7 @@ body {
   transform: scale(1.1);
 }
 
-/* "Forgot password?" button link styling */
+/* "Forgot password?" button styling */
 .forgot-password {
   background: none;
   border: none;
@@ -139,16 +138,28 @@ body {
   opacity: 0.9;
 }
 
-/* MOBILE RESPONSIVE */
+/* MESSAGE (for errors, success) */
+.message {
+  color: green;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+/* MOBILE RESPONSIVENESS */
 @media (max-width: 480px) {
   .login-container {
     padding: 1.5rem;
   }
+
   .remember-forgot {
-    flex-direction: row; /* Keep it in a row */
-    align-items: center; /* Align items properly */
-    justify-content: space-between; /* Maintain spacing */
-    gap: 5px; /* Reduce the gap */
-    flex-wrap: wrap; /* Allows wrapping if space is limited */
+    flex-wrap: wrap; /* Allows elements to wrap if space is limited */
+    justify-content: center; /* Centers elements */
+    gap: 5px;
+  }
+
+  .forgot-password {
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
   }
 }

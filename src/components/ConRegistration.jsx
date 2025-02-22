@@ -47,7 +47,7 @@ const ConferenceRegistration = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <div className="remember-forgot">
+        {/* <div className="remember-forgot">
           <input type="checkbox" id="remember-me" />
           <label htmlFor="remember-me">Remember me</label>
           <button
@@ -56,7 +56,21 @@ const ConferenceRegistration = () => {
           >
             Forgot password?
           </button>
-        </div>
+        </div> */}
+
+        <div className="remember-forgot">
+  <div className="remember-me-container">
+    <input type="checkbox" id="remember-me" />
+    <label htmlFor="remember-me">Remember me</label>
+  </div>
+  <button
+    onClick={() => navigate("/forgot-password")}
+    className="forgot-password"
+  >
+    Forgot password?
+  </button>
+</div>
+
         <button className="login-btn" onClick={handleLogin}>
           Log In
         </button>
