@@ -390,7 +390,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 // C:/uploads
 // /home/stis2025/public_html
-const uploadDir = "/home/stis2025/public_html";
+const uploadDir = "/home/stis2025/public_html/uploads";
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
