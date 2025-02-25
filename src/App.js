@@ -42,6 +42,7 @@ import NewUserRegistration from "./components/NewUserRegistration";
 // AbstractSubmissionButton
 import SubmitAbstractForm from './components/AbstractSubmissionButton';
 import ForgotPassword from "./components/ForgotPassword";
+import AbstractSubmissionStatus from './components/AbstractSubmissionStatus';
 
 
 // Router configuration with future flags to remove warnings

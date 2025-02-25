@@ -1,0 +1,70 @@
+/* AbstractSubmissionStatus.css */
+
+.abstract-status-container {
+    max-width: 800px;
+    margin: 80px auto 20px; /* Added margin to prevent overlap with navbar */
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .abstract-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .abstract-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background: #f8f8f8;
+    border-radius: 5px;
+  }
+  
+  .abstract-row strong {
+    color: #444;
+  }
+  
+  .abstract-row span {
+    color: #222;
+  }
+  
+  .status-accepted {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .status-rejected {
+    color: red;
+    font-weight: bold;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+
+
