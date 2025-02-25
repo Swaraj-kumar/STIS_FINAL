@@ -388,8 +388,9 @@ const transporter = nodemailer.createTransport({
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
-const uploadDir = "C:/uploads";
+// C:/uploads
+// /home/stis2025/public_html
+const uploadDir = "/home/stis2025/public_html";
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
