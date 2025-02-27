@@ -807,8 +807,7 @@ const transporter = nodemailer.createTransport({
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-// C:/uploads
-// /home/stis2025/public_html
+
 const uploadDir = path.join(process.cwd(), "uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
@@ -1149,7 +1148,7 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
 
-// Render problem
+// Render problem trial
 
 
 
