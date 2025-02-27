@@ -809,7 +809,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 // C:/uploads
 // /home/stis2025/public_html
-const uploadDir = "/home/stis2025/public_html/uploads";
+const uploadDir = path.join(process.cwd(), "uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
@@ -1019,46 +1019,76 @@ app.post("/submit-abstract", verifyToken, upload.single("abstractFile"), async (
     }
 
     // Upload file to Cloudinary
-    const result = await cloudinary.uploader.upload_stream(
-      { resource_type: "auto", folder: "abstracts" },
-      async (error, cloudinaryResult) => {
-        if (error) {
-          console.error("Cloudinary Upload Error:", error);
-          return res.status(500).json({ message: "File upload failed" });
-        }
-
-        // Save details in MongoDB
-        const user = await User.findOneAndUpdate(
-          { uid },
-          {
-            $set: {
-              "abstractSubmission.title": title,
-              "abstractSubmission.scope": theme,
-              "abstractSubmission.presentingType": presentingType,
-              "abstractSubmission.firstAuthorName": firstAuthorName,
-              "abstractSubmission.firstAuthorAffiliation": firstAuthorAffiliation,
-              "abstractSubmission.otherAuthors": otherAuthors,
-              "abstractSubmission.presentingAuthorName": presentingAuthorName,
-              "abstractSubmission.presentingAuthorAffiliation": presentingAuthorAffiliation,
-              "abstractSubmission.abstractFile": cloudinaryResult.secure_url,
-              "abstractSubmission.mainBody": mainBody,
-            },
-          },
-          { new: true, upsert: true }
+    const uploadToCloudinary = () => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { resource_type: "auto", folder: "abstracts" },
+          (error, cloudinaryResult) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(cloudinaryResult);
+            }
+          }
         );
+        stream.end(req.file.buffer);
+      });
+    };
 
-        res.status(200).json({ message: "Abstract submitted successfully!", abstract: user.abstractSubmission });
-      }
+    const cloudinaryResult = await uploadToCloudinary();
+
+    // Save details in MongoDB
+    const user = await User.findOneAndUpdate(
+      { uid },
+      {
+        $set: {
+          "abstractSubmission.title": title,
+          "abstractSubmission.scope": theme,
+          "abstractSubmission.presentingType": presentingType,
+          "abstractSubmission.firstAuthorName": firstAuthorName,
+          "abstractSubmission.firstAuthorAffiliation": firstAuthorAffiliation,
+          "abstractSubmission.otherAuthors": otherAuthors,
+          "abstractSubmission.presentingAuthorName": presentingAuthorName,
+          "abstractSubmission.presentingAuthorAffiliation": presentingAuthorAffiliation,
+          "abstractSubmission.abstractFile": cloudinaryResult.secure_url,
+          "abstractSubmission.mainBody": mainBody,
+        },
+      },
+      { new: true, upsert: true }
     );
 
-    // Pipe the file buffer to Cloudinary upload stream
-    result.end(req.file.buffer);
+    res.status(200).json({ message: "Abstract submitted successfully!", abstract: user.abstractSubmission });
+
   } catch (error) {
     console.error("Error submitting abstract:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
+
+app.delete("/delete-abstract-file", verifyToken, async (req, res) => {
+  try {
+    const { uid } = req.body;
+    const user = await User.findOne({ uid });
+    if (!user || !user.abstractSubmission.abstractFile) {
+      return res.status(404).json({ message: "Abstract file not found" });
+    }
+
+    const publicId = user.abstractSubmission.abstractFile.split("/").pop().split(".")[0];
+    cloudinary.uploader.destroy(publicId, async (error, result) => {
+      if (error) {
+        console.error("Error deleting file from Cloudinary:", error);
+        return res.status(500).json({ message: "Error deleting file" });
+      }
+      user.abstractSubmission.abstractFile = null;
+      await user.save();
+      res.json({ message: "File deleted successfully" });
+    });
+  } catch (error) {
+    console.error("Error deleting file:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
 // Get User Abstract
 app.get("/get-abstract/:uid", verifyToken, async (req, res) => {
@@ -1120,74 +1150,6 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
 // Render problem
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
