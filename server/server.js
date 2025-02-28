@@ -782,7 +782,6 @@ const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 require("dotenv").config();
 const nodemailer = require("nodemailer");
-
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({

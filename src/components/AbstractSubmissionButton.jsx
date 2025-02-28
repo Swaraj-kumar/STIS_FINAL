@@ -453,7 +453,7 @@ const SubmitAbstractForm = () => {
     }
   
     try {
-      const response = await fetch("http://localhost:5000/submit-abstract", {
+      const response = await fetch("https://stisv.onrender.com/submit-abstract", {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,
