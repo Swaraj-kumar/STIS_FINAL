@@ -109,6 +109,10 @@ function Navbar() {
             <NavLink to="/about" onClick={() => handleDropdownClick("/about")}>
               About the Conference
             </NavLink>
+
+            <NavLink to="/message-to-chairman" onClick={() => handleDropdownClick("/message-to-chairman")}>
+               Message from the Conference Chair
+            </NavLink>
             <NavLink to="/official-language" onClick={() => handleDropdownClick("/official-language")}>
               Official Language
             </NavLink>
@@ -167,17 +171,6 @@ function Navbar() {
           onMouseEnter={() => handleMouseEnter("registration")}
           onMouseLeave={handleMouseLeave}
         >
-          {/* <button className="dropdown-toggle" onClick={() => toggleDropdown("registration")}>
-            Registration
-          </button>
-          <div className={`dropdown-menu ${activeDropdown === "registration" ? "show" : ""}`}>
-            <NavLink to="/registration" onClick={() => handleDropdownClick("/registration")}>
-              Registration
-            </NavLink>
-            <NavLink to="/interest" onClick={() => handleDropdownClick("/interest")}>
-              Expression of Interest
-            </NavLink>
-          </div> */}
         </li>
         <li className="navbar-dropdown">
           <NavLink to="/committee" onClick={() => handleDropdownClick("/committee")}>
@@ -230,9 +223,9 @@ function Navbar() {
             <NavLink to="/tours-and-social-events" onClick={() => handleDropdownClick("/tours-and-social-events")}>
               Tours and Social Events
             </NavLink>
-            <NavLink to="/interest" onClick={() => handleDropdownClick("/interest")}>
+            {/* <NavLink to="/interest" onClick={() => handleDropdownClick("/interest")}>
               Expression of Interest
-            </NavLink>
+            </NavLink> */}
           </div>
         </li>
         <li className="navbar-item">
@@ -258,3 +251,4 @@ function Navbar() {
 }
 
 export default Navbar;
+

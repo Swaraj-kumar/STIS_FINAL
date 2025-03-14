@@ -43,6 +43,7 @@ import NewUserRegistration from "./components/NewUserRegistration";
 import SubmitAbstractForm from './components/AbstractSubmissionButton';
 import ForgotPassword from "./components/ForgotPassword";
 import AbstractSubmissionStatus from './components/AbstractSubmissionStatus';
+import ChairmanMessage from "./components/ChairmanMessage"; // update the path if different
 
 
 // Router configuration with future flags to remove warnings
@@ -85,6 +86,8 @@ const router = createHashRouter(
       <Route path="/register" element={<NewUserRegistration />} />
       <Route path="/submit-abstract" element={<SubmitAbstractForm />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/AbstractSubmissionStatus" element={<AbstractSubmissionStatus />} />
+      <Route path="/message-to-chairman" element={<ChairmanMessage />} />
 
       
     </Route>
