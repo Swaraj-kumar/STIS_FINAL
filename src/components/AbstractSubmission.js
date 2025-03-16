@@ -1,9 +1,3 @@
-
-
-
-
-// working
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AbstractSubmission.css';
@@ -14,14 +8,15 @@ const AbstractSubmission = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    // Check if user is logged in by verifying if token exists in localStorage
-    const token = localStorage.getItem('token');
+    // Use sessionStorage to ensure session expires on tab close
+    const token = sessionStorage.getItem('token');
     if (token) {
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
     }
   }, []);
+  
 
   const handleRedirect = () => {
     if (isAuthenticated) {
@@ -34,7 +29,7 @@ const AbstractSubmission = () => {
     }
   };
 
-  return (
+  return(
     <div className="abstract-submission-container">
       <h1 className="abstract-title">Submission of Abstract</h1>
       <p>
@@ -42,10 +37,10 @@ const AbstractSubmission = () => {
         including the full postal address on any aspect given in the scope of the conference.
         All abstracts will be peer-reviewed and the authors will be notified accordingly.
       </p>
-      <p>
+      {/* <p>
         The abstracts may be prepared in MS Word format and sent electronically to the Conference
         e-mail address <a href="mailto:stis.mte@iisc.ac.in">stis.mte@iisc.ac.in</a>
-      </p>
+      </p> */}
 
       <button className="submit-abstract-button" onClick={handleRedirect}>
         Submit Abstract here
