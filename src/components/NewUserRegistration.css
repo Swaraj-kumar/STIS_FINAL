@@ -76,6 +76,81 @@ input[type="file"] {
   margin-top: 10px;
 }
 
+
+
+
+
+/* add */
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.loader {
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  text-indent: -9999em;
+  animation: mulShdSpin 1.1s infinite ease;
+  transform: translateZ(0);
+}
+
+/* Fullscreen overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Blur background when loading */
+.blur {
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+}
+
+
+@keyframes mulShdSpin {
+  0%, 100% {
+    box-shadow: 0em -2.6em 0em 0em #ffffff,
+                1.8em -1.8em 0 0em rgba(255,255,255,0.2),
+                2.5em 0em 0 0em rgba(255,255,255,0.2),
+                1.75em 1.75em 0 0em rgba(255,255,255,0.2),
+                0em 2.5em 0 0em rgba(255,255,255,0.2),
+                -1.8em 1.8em 0 0em rgba(255,255,255,0.2),
+                -2.6em 0em 0 0em rgba(255,255,255,0.5),
+                -1.8em -1.8em 0 0em rgba(255,255,255,0.7);
+  }
+  12.5% {
+    box-shadow: 0em -2.6em 0em 0em rgba(255,255,255,0.7),
+                1.8em -1.8em 0 0em #ffffff,
+                2.5em 0em 0 0em rgba(255,255,255,0.2),
+                1.75em 1.75em 0 0em rgba(255,255,255,0.2),
+                0em 2.5em 0 0em rgba(255,255,255,0.2),
+                -1.8em 1.8em 0 0em rgba(255,255,255,0.2),
+                -2.6em 0em 0 0em rgba(255,255,255,0.2),
+                -1.8em -1.8em 0 0em rgba(255,255,255,0.5);
+  }
+  /* rest of your @keyframes stays the same */
+}
+
+
+/* add */
+
+
+
 .submit-btn {
   background-color: #007bff;
   color: white;
@@ -217,4 +292,3 @@ label {
   }
 }
  
-

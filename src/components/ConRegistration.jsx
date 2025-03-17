@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ConRegistration.css";
@@ -9,9 +10,11 @@ const ConferenceRegistration = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     setMessage("");
+    setLoading(true);
     try {
       const response = await axios.post("https://stisv.onrender.com/login", {
         email,
@@ -19,24 +22,24 @@ const ConferenceRegistration = () => {
       });
 
       if (response.data.token) {
-        // Use sessionStorage instead of localStorage
         sessionStorage.setItem("token", response.data.token);
         sessionStorage.setItem("uid", response.data.uid);
         sessionStorage.setItem("fullName", response.data.fullName);
-        
+
         navigate("/abstractsubmission");
-      }      
+      }
     } catch (error) {
       setMessage("Invalid credentials. Please try again.");
       console.error("Login failed:", error);
     }
+    setLoading(false);
   };
 
   return (
     <div className="registration-page">
       <h2 className="page-title">Member Login</h2>
 
-      <div className="login-container">
+      <div className={`login-container ${loading ? "blur" : ""}`}>
         <input
           type="email"
           placeholder="Please enter email"
@@ -63,16 +66,27 @@ const ConferenceRegistration = () => {
           </button>
         </div>
 
-        <button className="login-btn" onClick={handleLogin}>
-          Log In
+        <button className="login-btn" onClick={handleLogin} disabled={loading}>
+          {loading ? "Logging in..." : "Log In"}
         </button>
         <button className="register-btn" onClick={() => navigate("/register")}>
           New User Registration
         </button>
         {message && <p className="message">{message}</p>}
       </div>
+
+      {loading && (
+        <div className="overlay">
+          <div className="loader">Loading...</div>
+          <p style={{ color: "#fff", marginTop: "1rem" }}>Logging in...</p>
+        </div>
+      )}
     </div>
   );
 };
 
 export default ConferenceRegistration;
+
+
+
+

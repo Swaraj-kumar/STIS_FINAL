@@ -19,6 +19,8 @@ const SubmitAbstractForm = () => {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -49,15 +51,18 @@ const SubmitAbstractForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-
+  
+    setLoading(true); // start spinner
+  
     const token = sessionStorage.getItem("token");
     const uid = sessionStorage.getItem("uid");
-
+  
     if (!token || !uid) {
       setMessage("User is not logged in.");
+      setLoading(false); // stop spinner on failure
       return;
     }
-
+  
     const submitFormData = new FormData();
     submitFormData.append("uid", uid);
     submitFormData.append("title", formData.title);
@@ -69,21 +74,20 @@ const SubmitAbstractForm = () => {
     submitFormData.append("presentingAuthorName", formData.presentingAuthorName);
     submitFormData.append("presentingAuthorAffiliation", formData.presentingAuthorAffiliation);
     submitFormData.append("mainBody", formData.mainBody);
-
+  
     if (formData.abstractFile) {
       submitFormData.append("abstractFile", formData.abstractFile);
     }
-
+  
     try {
       const response = await fetch("https://stisv.onrender.com/submit-abstract", {
-        // const response = await fetch("http://localhost:5000/submit-abstract", {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: submitFormData,
       });
-
+  
       const data = await response.json();
       if (response.ok) {
         setMessage("Abstract submitted successfully!");
@@ -95,7 +99,11 @@ const SubmitAbstractForm = () => {
       console.error("Error submitting abstract:", error);
       setMessage("Submission failed. Please try again.");
     }
+  
+    setLoading(false); // ✅ move here — only run after fetch is complete
   };
+  
+
 
   const handleBackToHome = () => {
     navigate("/"); // Navigate to home page
@@ -116,8 +124,17 @@ const SubmitAbstractForm = () => {
         </div>
       )}
 
+{loading && (
+  <div className="overlay">
+    <div className="loader">Loading...</div>
+    <p style={{ color: "#fff", marginTop: "1rem" }}>Submitting your abstract...</p>
+  </div>
+)}
+
+
       <h1>Abstract Submission Form</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={loading ? "blur" : ""}>
+
         <label>Title of the Paper *</label>
         <input type="text" name="title" value={formData.title} onChange={handleChange} required />
         {errors.title && <span className="error">{errors.title}</span>}
@@ -165,7 +182,8 @@ const SubmitAbstractForm = () => {
         {errors.mainBody && <span className="error">{errors.mainBody}</span>}
 
         <div className="form-buttons">
-          <button type="submit">Submit</button>
+        <button type="submit" disabled={loading}>Submit</button>
+
         </div>
       </form>
       
@@ -176,14 +194,6 @@ const SubmitAbstractForm = () => {
 };
 
 export default SubmitAbstractForm;
-
-
-
-
-
-
-
-
 
 
 

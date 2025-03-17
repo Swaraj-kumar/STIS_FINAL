@@ -210,6 +210,14 @@ const NewUserRegistration = () => {
           </button>
 
           {message && <p className="message">{message}</p>}
+          {loading && (
+  <div className="overlay">
+    <div className="loader">Loading...</div>
+    <p style={{ color: "#fff", marginTop: "1rem" }}>Processing your registration...</p>
+  </div>
+)}
+
+
         </form>
       </div>
     </div>
