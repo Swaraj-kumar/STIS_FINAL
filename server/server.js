@@ -2026,7 +2026,8 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
-
+const { createObjectCsvWriter } = require("csv-writer");
+const { updateGoogleSheet } = require("./controllers/googleSheets");
 const nodemailer = require("nodemailer");
 const cloudinary = require("cloudinary").v2;
 
@@ -2166,6 +2167,15 @@ app.post("/register", async (req, res) => {
     });
 
     await newUser.save();
+     console.log("🔄 Attempting to update Google Sheets...");
+     console.log("📝 Data being sent to Google Sheets:", newUser);
+ 
+     await updateGoogleSheet(newUser);
+ 
+     // ✅ Debug log after updating Google Sheets
+     console.log("✅ Google Sheets update was successful!");
+ 
+     res.status(201).json({ message: "User registered successfully" });
 
     // Send acknowledgement to the user
     const mailOptions = {
