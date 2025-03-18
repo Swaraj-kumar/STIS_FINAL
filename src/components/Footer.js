@@ -120,7 +120,7 @@ const Footer = () => {
                         <NavLink to="/about" onClick={handleLinkClick}>About</NavLink>
                         <NavLink to="/distinguished-speaker" onClick={handleLinkClick}>Speakers</NavLink>
                         <NavLink to="/programme" onClick={handleLinkClick}>Programme</NavLink>
-                        <NavLink to="/registration" onClick={handleLinkClick}>Registration</NavLink>
+                        <NavLink to="/register" onClick={handleLinkClick}>Registration</NavLink>
                         <NavLink to="/conference-proceedings" onClick={handleLinkClick}>Conference Proceeding</NavLink>
                         <NavLink to="/conference-themes" onClick={handleLinkClick}>Conference Themes</NavLink>
                         <NavLink to="/committee" onClick={handleLinkClick}>Committee</NavLink>
