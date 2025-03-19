@@ -162,7 +162,7 @@ app.post("/register", async (req, res) => {
      console.log("🔄 Attempting to update Google Sheets...");
      console.log("📝 Data being sent to Google Sheets:", newUser);
  
-     await updateGoogleSheet(newUser);
+     
  
      // ✅ Debug log after updating Google Sheets
      console.log("✅ Google Sheets update was successful!");
