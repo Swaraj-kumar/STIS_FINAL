@@ -122,8 +122,6 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", userSchema);
-
-// Register User
 app.post("/register", async (req, res) => {
   try {
     const { email, password, phone, givenName, familyName, fullName, country, affiliation } = req.body;
@@ -133,7 +131,9 @@ app.post("/register", async (req, res) => {
     }
 
     const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: "User already exists" });
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -149,80 +149,56 @@ app.post("/register", async (req, res) => {
       affiliation,
     });
 
-    await newUser.save();
-     
- 
-     
- 
-     // ✅ Debug log after updating Google Sheets
-     console.log("✅ Google Sheets update was successful!");
- 
-     res.status(201).json({ message: "User registered successfully" });
-     console.log("🔄 Attempting to update Google Sheets...");
-     
- 
-     await updateGoogleSheet(newUser);
- 
-     // ✅ Debug log after updating Google Sheets
-     console.log("✅ Google Sheets update was successful!");
- 
-    
+    await newUser.save(); // ✅ Save user first
 
-    // Send acknowledgement to the user
+    // ✅ Send response before long operations like Google Sheets update
+    res.status(201).json({ message: "User registered successfully" });
+
+    // ✅ Call `updateGoogleSheet()` only once (after response is sent)
+    console.log("🔄 Attempting to update Google Sheets...");
+    await updateGoogleSheet(newUser);
+    console.log("✅ Google Sheets update was successful!");
+
+    // ✅ Send emails after response is sent
+    sendRegistrationEmails(email, givenName, fullName, familyName, phone, country, affiliation);
+
+  } catch (error) {
+    console.error("❌ Error registering user:", error);
+
+    if (!res.headersSent) { // ✅ Prevent multiple responses
+      res.status(500).json({ message: "Server error", error: error.message });
+    }
+  }
+});
+
+// ✅ Function to send emails asynchronously (prevents API slowdowns)
+async function sendRegistrationEmails(email, givenName, fullName, familyName, phone, country, affiliation) {
+  try {
+    // ✅ Send email to user
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Welcome to STIS-V 2025 Conference!",
-      text: `Dear ${givenName},
-
-Thank you for registering for STIS-V 2025.
-Your account has been successfully created.
-We look forward to your participation.
-
-Thanking you and with best regards,  
-STIS-V 2025 Organizing Team`,
+      text: `Dear ${givenName},\n\nThank you for registering for STIS-V 2025.\nYour account has been successfully created.\nWe look forward to your participation.\n\nBest regards,\nSTIS-V 2025 Organizing Team`,
     };
+    await transporter.sendMail(mailOptions);
+    console.log("✅ Acknowledgement email sent to user:", email);
 
-    // Send user details to swarajk@iisc.ac.in
+    // ✅ Send registration details to admin
     const adminMailOptions = {
       from: process.env.EMAIL_USER,
       to: "stis.mte@iisc.ac.in",
       subject: "New User Registration - STIS-V 2025",
-      text: `A new user has registered:
-
-Full Name: ${fullName}
-Given Name: ${givenName}
-Family Name: ${familyName || "N/A"}
-Email: ${email}
-Phone: ${phone}
-Country: ${country}
-Affiliation: ${affiliation}
-
-Regards,
-STIS-V Registration System`,
+      text: `A new user has registered:\n\nFull Name: ${fullName}\nGiven Name: ${givenName}\nFamily Name: ${familyName || "N/A"}\nEmail: ${email}\nPhone: ${phone}\nCountry: ${country}\nAffiliation: ${affiliation}\n\nRegards,\nSTIS-V Registration System`,
     };
-
-    try {
-      await transporter.sendMail(mailOptions);
-      console.log("✅ Acknowledgement email sent to user");
-    } catch (error) {
-      console.error("❌ Error sending email to user:", error);
-    }
-
-    try {
-      await transporter.sendMail(adminMailOptions);
-      console.log("✅ Registration details sent to swarajk@iisc.ac.in");
-    } catch (error) {
-      console.error("❌ Error sending admin email:", error);
-    }
-
-    res.status(201).json({ message: "User registered successfully" });
+    await transporter.sendMail(adminMailOptions);
+    console.log("✅ Registration details sent to admin");
 
   } catch (error) {
-    console.error("Error registering user:", error);
-    res.status(500).json({ message: "Server error", error: error.message });
+    console.error("❌ Error sending emails:", error);
   }
-});
+}
+
 
 
 

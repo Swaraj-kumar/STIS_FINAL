@@ -35,6 +35,14 @@ async function updateGoogleSheet(userData) {
 
     const sheet = doc.sheetsByIndex[0]; // Select the first sheet
 
+    const rows = await sheet.getRows();
+    const emailExists = rows.some(row => row.Email === userData.email);
+
+    if (emailExists) {
+      console.log("⚠️ Email already exists in Google Sheets. Skipping duplicate entry:", userData.email);
+      return;
+    }
+
     console.log("✅ Google Sheets connected. Adding row...");
 
     await sheet.addRow({
