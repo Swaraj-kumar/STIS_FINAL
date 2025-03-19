@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "./NewUserRegistration.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const countryList = [
   "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua & Deps", "Argentina", "Armenia", "Australia", "Austria",
@@ -39,6 +40,8 @@ const NewUserRegistration = () => {
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Function to validate strong passwords
   const validatePassword = (password) => {
@@ -112,27 +115,45 @@ const NewUserRegistration = () => {
             required 
           />
 
-          <label>Create Password <span className="required">*</span></label>
-          <input 
-            type="password" 
-            name="password" 
-            placeholder="Create a password" 
-            className="input-field" 
-            value={formData.password} 
-            onChange={handleChange} 
-            required 
-          />
+<label>Create Password <span className="required">*</span></label>
+          <div className="password-input-wrapper">
+            <input 
+              type={showPassword ? "text" : "password"}
+              name="password" 
+              placeholder="Create a password" 
+              className="input-field" 
+              value={formData.password} 
+              onChange={handleChange} 
+              required 
+            />
+            <span 
+              className="eye-icon"
+              onClick={() => setShowPassword(prev => !prev)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
 
           <label>Confirm Password <span className="required">*</span></label>
-          <input 
-            type="password" 
-            name="confirmPassword" 
-            placeholder="Confirm your password" 
-            className="input-field" 
-            value={formData.confirmPassword} 
-            onChange={handleChange} 
-            required 
-          />
+          <div className="password-input-wrapper">
+            <input 
+              type={showConfirmPassword ? "text" : "password"}
+              name="confirmPassword" 
+              placeholder="Confirm your password" 
+              className="input-field" 
+              value={formData.confirmPassword} 
+              onChange={handleChange} 
+              required 
+            />
+            <span 
+              className="eye-icon"
+              onClick={() => setShowConfirmPassword(prev => !prev)}
+            >
+              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+        
+          
 
           <label>Telephone <span className="required">*</span></label>
           <PhoneInput 
