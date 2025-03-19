@@ -150,17 +150,7 @@ app.post("/register", async (req, res) => {
     });
 
     await newUser.save();
-     console.log("🔄 Attempting to update Google Sheets...");
-     console.log("📝 Data being sent to Google Sheets:", newUser);
- 
-     await updateGoogleSheet(newUser);
- 
-     // ✅ Debug log after updating Google Sheets
-     console.log("✅ Google Sheets update was successful!");
- 
-     res.status(201).json({ message: "User registered successfully" });
-     console.log("🔄 Attempting to update Google Sheets...");
-     console.log("📝 Data being sent to Google Sheets:", newUser);
+     
  
      
  
@@ -168,6 +158,15 @@ app.post("/register", async (req, res) => {
      console.log("✅ Google Sheets update was successful!");
  
      res.status(201).json({ message: "User registered successfully" });
+     console.log("🔄 Attempting to update Google Sheets...");
+     
+ 
+     await updateGoogleSheet(newUser);
+ 
+     // ✅ Debug log after updating Google Sheets
+     console.log("✅ Google Sheets update was successful!");
+ 
+    
 
     // Send acknowledgement to the user
     const mailOptions = {

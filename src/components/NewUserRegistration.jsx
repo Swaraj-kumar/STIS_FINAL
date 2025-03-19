@@ -157,7 +157,7 @@ const NewUserRegistration = () => {
 
           <label>Telephone <span className="required">*</span></label>
           <PhoneInput 
-            country={"us"} 
+            country={"in"} 
             value={formData.phone} 
             onChange={handlePhoneChange} 
             inputClass="input-field" 

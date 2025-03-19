@@ -45,7 +45,7 @@ async function updateGoogleSheet(userData) {
       Full_Name: userData.fullName,
       Country: userData.country,
       Affiliation: userData.affiliation,
-      Registered_At: new Date().toISOString(),
+      Registered_At: new Date(),
     });
 
     console.log("✅ Google Sheet updated successfully!");
