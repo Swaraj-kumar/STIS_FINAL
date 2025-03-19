@@ -328,6 +328,12 @@ app.post("/submit-abstract", verifyToken, upload.single("abstractFile"), async (
       return res.status(404).json({ message: "User not found" });
     }
 
+     // ✅ Update Google Sheets with Abstract details
+     console.log("🔄 Attempting to update Google Sheets for Abstract Submission...");
+     await updateGoogleSheet(user, true);
+     console.log("✅ Google Sheets updated with Abstract details!");
+ 
+
     // Send confirmation email
     const mailOptions = {
       from: process.env.EMAIL_USER,
