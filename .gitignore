@@ -1,15 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
-server/node_modules/
+
 /.pnp
 .pnp.js
 
 # testing
 /coverage
 
-
+/server/config/sheets-key.json
 # production
 /build
 uploads/
@@ -26,3 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 
 
+node_modules
