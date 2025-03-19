@@ -9,7 +9,8 @@
 
 
 /server/config/sheets-key.json
-
+node_modules/
+server/node_modules/
 
 # production
 /build
@@ -27,4 +28,4 @@ yarn-debug.log*
 yarn-error.log*
 
 
-node_modules
+
