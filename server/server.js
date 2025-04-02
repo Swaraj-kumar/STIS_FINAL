@@ -181,6 +181,8 @@ async function sendRegistrationEmails(email, givenName, fullName, familyName, ph
       subject: "Welcome to STIS-V 2025 Conference!",
       text: `Dear ${givenName},\n\nThank you for registering for STIS-V 2025.\nYour account has been successfully created.\nWe look forward to your participation.\n\nBest regards,\nSTIS-V 2025 Organizing Team`,
     };
+
+
     await transporter.sendMail(mailOptions);
     console.log("✅ Acknowledgement email sent to user:", email);
 

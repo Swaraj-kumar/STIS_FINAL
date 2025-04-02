@@ -16,48 +16,59 @@ async function updateGoogleSheet(userData, isAbstractSubmission = false) {
     });
 
     const doc = new GoogleSpreadsheet(SHEET_ID, auth);
+    
     await doc.loadInfo();
 
-    const sheet = doc.sheetsByIndex[0];
+    // ✅ Selecting sheets
+    const registrationSheet = doc.sheetsByTitle["Registration Details"];
+    const abstractSheet = doc.sheetsByTitle["Abstract Submissions"];
 
-    // ✅ Fetch all rows for debugging
-    const rows = await sheet.getRows();
-    console.log("📌 Total rows in Google Sheets:", rows.length);
+    if (!registrationSheet || !abstractSheet) {
+      console.error("❌ One or both sheets do not exist. Please create them in Google Sheets.");
+      return;
+    }
 
-    // ✅ Check if the user already exists in Google Sheets
-    // ✅ Check if the user already exists in Google Sheets
-    const existingRow = rows.find(row => 
-      row.Email.trim().toLowerCase() === userData.email.trim().toLowerCase() &&
-      (!row.Abstract_Title || row.Abstract_Title === "N/A") // Only update if no abstract exists
-    );
-    console.log("🔍 Searching for user:", userData.email);
-    console.log("🔍 Found existing row:", existingRow ? "Yes" : "No");
+    if (isAbstractSubmission) {
+      // ✅ Fetch all rows from Abstract Submissions
+      const abstractRows = await abstractSheet.getRows();
+      console.log("📌 Total Abstract Submissions:", abstractRows.length);
 
-    if (existingRow) {
-      console.log("🔄 Updating existing user row in Google Sheets for:", userData.email);
+      // ✅ Find if an abstract with the same email exists
+      const existingAbstractRow = abstractRows.find(
+        row => row.Email && 
+        typeof row.Email === "string" && 
+        row.Email.trim().toLowerCase() === userData.email.trim().toLowerCase()
+      );
 
-      if (isAbstractSubmission) {
-        existingRow.Abstract_Title = userData.abstractSubmission?.title || "N/A";
-        existingRow.Abstract_Scope = userData.abstractSubmission?.scope || "N/A";
-        existingRow.Abstract_PresentingType = userData.abstractSubmission?.presentingType || "N/A";
-        existingRow.Abstract_File = userData.abstractSubmission?.abstractFile || "N/A";
-        existingRow.Abstract_Authors = userData.abstractSubmission?.otherAuthors || "N/A";
+      if (existingAbstractRow) {
+        console.log("🔄 Updating existing abstract submission for:", userData.email);
+
+        existingAbstractRow.Abstract_Title = userData.abstractSubmission?.title || "N/A";
+        existingAbstractRow.Abstract_Scope = userData.abstractSubmission?.scope || "N/A";
+        existingAbstractRow.Abstract_PresentingType = userData.abstractSubmission?.presentingType || "N/A";
+        existingAbstractRow.Abstract_File = userData.abstractSubmission?.abstractFile || "N/A";
+        existingAbstractRow.Abstract_Authors = userData.abstractSubmission?.otherAuthors || "N/A";
+
+        await existingAbstractRow.save();
+        console.log("✅ Abstract submission updated for:", userData.email);
       } else {
-        existingRow.Email = userData.email;
-        existingRow.Phone = userData.phone;
-        existingRow.Given_Name = userData.givenName;
-        existingRow.Family_Name = userData.familyName || "N/A";
-        existingRow.Full_Name = userData.fullName;
-        existingRow.Country = userData.country;
-        existingRow.Affiliation = userData.affiliation;
-        existingRow.Registered_At = new Date().toISOString();
+        console.log("⚠️ No existing abstract found. Adding a new submission...");
+        await abstractSheet.addRow({
+          Full_Name: userData.fullName,
+          Email: userData.email,
+          Abstract_Title: userData.abstractSubmission?.title || "N/A",
+          Abstract : userData.abstractSubmission?.mainBody || "N/A",
+          Abstract_Scope: userData.abstractSubmission?.scope || "N/A",
+          Abstract_PresentingType: userData.abstractSubmission?.presentingType || "N/A",
+          Abstract_File: userData.abstractSubmission?.abstractFile || "N/A",
+          Abstract_Authors: userData.abstractSubmission?.otherAuthors || "N/A",
+        });
+        console.log("✅ New abstract submission added for:", userData.email);
       }
-
-      await existingRow.save();
-      console.log("✅ Google Sheets row updated for:", userData.email);
     } else {
-      console.log("⚠️ User not found in Google Sheets. Adding new row...");
-      await sheet.addRow({
+      // ✅ Registration Details - Add new users only (no update)
+      console.log("📌 Adding new user to Registration Details...");
+      await registrationSheet.addRow({
         Email: userData.email,
         Phone: userData.phone,
         Given_Name: userData.givenName,
@@ -66,13 +77,8 @@ async function updateGoogleSheet(userData, isAbstractSubmission = false) {
         Country: userData.country,
         Affiliation: userData.affiliation,
         Registered_At: new Date().toISOString(),
-        Abstract_Title: userData.abstractSubmission?.title || "N/A",
-        Abstract_Scope: userData.abstractSubmission?.scope || "N/A",
-        Abstract_PresentingType: userData.abstractSubmission?.presentingType || "N/A",
-        Abstract_File: userData.abstractSubmission?.abstractFile || "N/A",
-        Abstract_Authors: userData.abstractSubmission?.otherAuthors || "N/A",
       });
-      console.log("✅ Google Sheets new row added for:", userData.email);
+      console.log("✅ Registration details added for:", userData.email);
     }
   } catch (error) {
     console.error("❌ Error updating Google Sheets:", error);

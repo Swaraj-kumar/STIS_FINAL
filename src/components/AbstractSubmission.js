@@ -52,7 +52,7 @@ const AbstractSubmission = () => {
 
       <h1 className="abstract-title" style={{ marginTop: '20px' }}>Instruction to Authors</h1>
       <ul>
-        <li><a href="/assets/Abstract-Template.docx" download>Abstract Template</a></li>
+        <li><a href="./assets/Abstract-Template.docx" download>Abstract Template</a></li>
       </ul>
     </div>
   );
