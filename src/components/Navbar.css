@@ -1,358 +1,214 @@
-/* Fixed Navbar Styling */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: whitesmoke;
-  padding: 10px 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  border-radius: 5px;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+/* =============================
+   NAVBAR - STIS-V 2025
+   ============================= */
 
-.navbar-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #333;
-}
-
-.navbar-logo a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-.navbar-logo img {
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
-}
-
-.navbar-logo .logo-text {
-  color: inherit; /* This will prevent the text from becoming blue */
-  margin-left: 10px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.navbar-items {
-  font-weight: bold;
-  width: 100%;
-  white-space: nowrap;
-  margin: 0;
-  gap: 5px;
-  list-style: none;
-}
-
-.conference-registration-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #007bff; /* Blue color */
-  color: white;
-  border-radius: 25px; /* Rounded edges */
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.conference-registration-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-  transform: scale(1.05); /* Slight zoom effect */
-}
-
-.conference-registration-button:active {
-  transform: scale(0.98); /* Slight press effect */
-}
-
-/* Code for navbar Registration ended */
-
-.navbar-items a,
-.dropdown-toggle {
-  color: #333;
-  padding: 8px 15px;
-  text-decoration: none;
-  font-size: 1em;
-  text-align: center;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  white-space: nowrap;
-  margin: 0;
-  font-weight: normal;
-}
-
-.dropdown-toggle {
-  width: auto;
-  white-space: nowrap;
-  margin: 0;
-  gap: 5px;
-}
-
-.logo-text {
-  color: #333 !important;
-}
-
-.navbar-items a:hover,
-.dropdown-toggle:hover {
-  background-color: #e0e0e0;
-  border-radius: 5px;
-}
-
-/* Dropdown Styles */
-.navbar-dropdown {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #f9f9f9;
-  min-width: 200px;
-  max-height: calc(100vh - 80px);
-  overflow-y: auto;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  border-radius: 5px;
-}
-
-/* Adjust position for dropdowns that might go off-screen on the right */
-.navbar-items li:nth-last-child(-n+2) .dropdown-menu {
-  left: auto;
-  right: 0;
-}
-
-.dropdown-menu.show {
-  display: block;
-}
-
-.dropdown-menu a {
-  color: #333;
-  padding: 10px 15px;
-  text-decoration: none;
-  display: block;
-  white-space: nowrap;
-  font-weight: normal;
-  /* Reset font weight for dropdown items */
-}
-
-.dropdown-menu a:hover {
-  background-color: #e0e0e0;
-}
-
-/* Scrollbar styling for dropdown menus */
-.dropdown-menu::-webkit-scrollbar {
-  width: 6px;
-}
-
-.dropdown-menu::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
-}
-
-.dropdown-menu::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 3px;
-}
-
-.dropdown-menu::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-/* Mobile Menu Toggle */
-.navbar-toggle {
-  display: none;
-  font-size: 1.8em;
-  color: #333;
-  cursor: pointer;
-}
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.user-initials {
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background-color: white; /* Blue Background */
-  color: black;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  border: 2px solid #007bff; /* Blue Border */
-}
-
-
-/* Responsive Styles */
-@media screen and (max-width: 1024px) {
-  .navbar-items {
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
+   .navbar {
     width: 100%;
-    background-color: whitesmoke;
-    display: none;
-    align-items: center;
-    padding: 10px 0;
-    gap: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    font-family: 'Segoe UI', sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
   }
-
-  .navbar-items.active {
+  
+  /* === Top Line: Brand & Auth === */
+  .navbar-top {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0.8rem 1.2rem;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+  }
+  
+  .navbar-brand img.brand-icon {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .navbar-brand span {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #003566;
+    letter-spacing: 0.5px;
+  }
+  
+  .navbar-auth {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    
   }
 
-  .navbar-items a,
-  .dropdown-toggle {
-    width: 100%;
-    text-align: center;
+  .navbar-auth a, .navbar-top {
+    text-decoration: none;
+  }
+  
+  .navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .user-badge {
+    background: #003566;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  
+  .logout-btn {
+    background: none;
+    color: #d62828;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+  
+  .logout-btn:hover {
+    color: #000;
+  }
+  
+  /* === Second Line: Navigation Menu === */
+  .navbar-menu {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0.6rem 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    padding: 12px 15px;
-    margin: 0;
+    gap: 1.5rem;
+    background: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
   }
-
+  
+  .navbar-menu a,
+  .navbar-menu .dropdown-toggle {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #333;
+    background: none;
+    border: none;
+    padding: 8px 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .navbar-menu a:hover,
+  .navbar-menu .dropdown-toggle:hover {
+    color: #0077b6;
+    text-decoration: none;
+  }
+  
+  /* === Dropdown Styling === */
   .navbar-dropdown {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: relative;
   }
-
-  .navbar-toggle {
-    display: block;
+  
+  .dropdown-toggle::after {
+    content: " ▼";
+    font-size: 0.7rem;
   }
-
-  .dropdown-menu {
-    max-height: none;
-    overflow-y: visible;
-    position: static;
-    width: 100%;
-  }
-
-  .dropdown-menu a {
-    padding: 12px 15px;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .dropdown-menu.show {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-/* Desktop layout */
-@media screen and (min-width: 1025px) {
-  .navbar-items {
-    flex-direction: row;
-    position: static;
-    width: auto;
-    display: flex;
-  }
-
-  .navbar-items a,
-  .dropdown-toggle {
-    width: auto;
-    text-align: left;
-  }
-
-  .navbar-dropdown {
-    width: auto;
-  }
-
-  .navbar-toggle {
-    display: none;
-  }
-
+  
   .dropdown-menu {
     position: absolute;
-    top: 100%;
+    top: 120%;
     left: 0;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    padding: 0.5rem 0;
+    display: none;
+    flex-direction: column;
+    min-width: 220px;
+    z-index: 999;
   }
-}
-
-/* Small screens */
-@media screen and (max-width: 400px) {
-  .navbar {
-    padding: 5px 10px;
+  
+  .navbar-dropdown:hover .dropdown-menu {
+    display: flex;
   }
-
-  .navbar-logo {
-    font-size: 1.2em;
-  }
-
-  .navbar-logo img {
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
-  }
-
-  .navbar-toggle {
-    font-size: 1.5em;
-  }
-
-  .navbar-items {
-    top: 45px;
-    gap: 3px;
-  }
-
-  .navbar-items a,
-  .dropdown-toggle,
+  
   .dropdown-menu a {
-    font-size: 0.9em;
-    padding: 8px 10px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    color: #333;
+    transition: background-color 0.2s ease;
   }
-
-  .dropdown-menu {
-    min-width: 140px;
+  
+  .dropdown-menu a:hover {
+    background-color: #f0f0f0;
   }
-}
-
-/* MacBook Air and similar screen sizes */
-@media screen and (min-width: 1280px) and (max-width: 1440px) {
-  .navbar {
-    padding: 10px 3%;
+  
+  /* === Mobile Responsive === */
+  .navbar-toggle {
+    display: none;
+    font-size: 1.6rem;
+    background: none;
+    border: none;
+    cursor: pointer;
   }
-
-  .navbar-items a,
-  .dropdown-toggle {
-    padding: 8px 12px;
-    font-size: 0.95em;
+  
+  @media (max-width: 1024px) {
+    .navbar-toggle {
+      display: block;
+    }
+  
+    .navbar-menu {
+      flex-direction: column;
+      align-items: flex-start;
+      background: #ffffff;
+      width: 100%;
+      padding: 1rem;
+      display: none;
+    }
+  
+    .navbar-menu.active {
+      display: flex;
+    }
+  
+    .dropdown-menu {
+      position: static;
+      box-shadow: none;
+      padding-left: 1rem;
+    }
+  
+    .dropdown-menu a {
+      padding: 8px 0;
+    }
+  
+    .navbar-auth {
+      margin-top: 1rem;
+    }
   }
-
-  .navbar-logo {
-    font-size: 1.3em;
+  
+  @media (max-width: 768px) {
+    .navbar-brand span {
+      font-size: 1.1rem;
+    }
+  
+    .user-badge {
+      font-size: 0.8rem;
+      padding: 5px 10px;
+    }
+  
+    .logout-btn {
+      font-size: 0.85rem;
+    }
   }
-
-  .navbar-logo img {
-    width: 35px;
-    height: auto;
-  }
-}
+  

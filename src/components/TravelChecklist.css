@@ -1,173 +1,176 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
-}
-
-.travel-checklist-container {
-    max-width: 1200px;
+/* Container */
+.checklist-wrapper {
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 80px 20px;
-    background-color: #f8f9fa;
-    min-height: 100vh;
-    position: relative;
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 40px;
-    padding-top: 20px;
-    animation: fadeIn 1s ease-out;
-}
-
-.title {
-    font-size: 2.5rem;
-    color: #1a1a1a;
+    padding: 60px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  /* Header */
+  .checklist-header {
     text-align: center;
     margin-bottom: 50px;
-    position: relative;
-    padding-bottom: 15px;
-    animation: fadeInUp 1.5s ease-out, pulse 2s infinite !important;
-}
-
-.title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: linear-gradient(to right, #3498db, #2c3e50);
-}
-
-.subtitle {
-    color: #666;
-    font-size: 1.1rem;
-    margin: 0;
-    text-align: center;
-}
-
-.sections-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    animation: slideUp 0.8s ease-out;
-    padding-bottom: 40px;
-}
-
-.section {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .checklist-header h1 {
+    font-size: 2.8rem;
+    color: #1a237e;
+    margin-bottom: 10px;
+  }
+  
+  .checklist-header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  /* Checklist Item */
+  .checklist-item {
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.section:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-}
-
-.section-header {
+    transition: all 0.3s ease-in-out;
+    border-left: 5px solid #3f51b5;
+  }
+  
+  /* Header Bar (Clickable) */
+  .checklist-item-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    background-color: white;
-}
-
-.section-header h2 {
-    margin: 0;
-    font-size: 1.25rem;
-    color: #2c3e50;
-}
-
-.expand-icon {
+    padding: 20px 25px;
+    cursor: pointer;
+    background-color: #f0f2f5;
+    font-weight: 600;
+    font-size: 0.75rem!important;
+    transition: background 0.3s;
+  }
+  
+  .checklist-item-header:hover {
+    background-color: #e8eaf6;
+  }
+  
+  .toggle-icon {
     font-size: 1.5rem;
-    color: #666;
-    transition: transform 0.3s ease;
-}
-
-.section.active .expand-icon {
-    transform: rotate(180deg);
-}
-
-.section-content {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: all 0.3s ease-out;
-    padding: 0 20px;
-}
-
-.section.active .section-content {
-    max-height: 2000px; /* Increased to accommodate all content */
-    opacity: 1;
-    padding: 0 20px 20px;
-}
-
-.section-content p {
-    margin: 0 0 15px;
-    line-height: 1.6;
-    color: #555;
-}
-
-.content-wrapper {
-    padding: 0 20px 20px;
-}
-
-
-.learn-more-link {
+    color: #3f51b5;
+  }
+  
+  /* Expanded Content */
+  .checklist-item-body {
+    padding: 25px 30px 20px 30px;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .checklist-item-body p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 15px;
+  }
+  
+  .checklist-link {
     display: inline-block;
-    color: #3498db;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
     margin-top: 10px;
-}
-
-.learn-more-link:hover {
-    color: #2980b9;
-}
-
-@keyframes fadeIn {
+    color: #1565c0;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  
+  .checklist-link:hover {
+    color: #0d47a1;
+    border-color: #0d47a1;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
     from {
-        opacity: 0;
-        transform: translateY(-20px);
+      opacity: 0;
+      transform: translateY(5px);
     }
     to {
-        opacity: 1;
-        transform: translateY(0);
+      opacity: 1;
+      transform: translateY(0);
     }
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
+  }
+  
+  /* ================================
+   Responsive Design - Tablets (≤768px)
+================================ */
 @media (max-width: 768px) {
-    .travel-checklist-container {
-        padding: 20px 10px;
+    .checklist-wrapper {
+      padding: 50px 16px;
     }
-    
-    .title {
-        font-size: 2rem;
+  
+    .checklist-header h1 {
+      font-size: 2.2rem;
     }
-    
-    .section-header {
-        padding: 15px;
+  
+    .checklist-header p {
+      font-size: 1.05rem;
     }
-    
-    .content-wrapper {
-        padding: 0 15px 15px;
+  
+    .checklist-item-header {
+      padding: 18px 20px;
+      font-size: 0.85rem!important;
     }
-}
+  
+    .checklist-item-body {
+      padding: 20px 24px;
+    }
+  
+    .checklist-item-body p {
+      font-size: 0.95rem;
+    }
+  
+    .toggle-icon {
+      font-size: 1.4rem;
+    }
+  }
+  
+  /* ================================
+     Responsive Design - Phones (≤480px)
+  ================================ */
+  @media (max-width: 480px) {
+    .checklist-wrapper {
+      padding: 40px 12px;
+    }
+  
+    .checklist-header h1 {
+      font-size: 1.8rem;
+    }
+  
+    .checklist-header p {
+      font-size: 0.95rem;
+    }
+  
+    .checklist-item-header {
+      padding: 16px 18px;
+      font-size: 0.8rem!important;
+    }
+  
+    .checklist-item-body {
+      padding: 18px 20px;
+    }
+  
+    .checklist-item-body p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  
+    .toggle-icon {
+      font-size: 1.3rem;
+    }
+  
+    .checklist-link {
+      font-size: 0.95rem;
+    }
+  }
+  

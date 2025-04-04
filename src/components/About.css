@@ -1,144 +1,160 @@
-.about-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 20px;
-  background-color: #ffffff;
-}
-
-.about-heading {
-  font-size: 2.5rem;
+/* ===================== General Page Layout ===================== */
+.about-page {
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff;
   color: #1a1a1a;
-  text-align: center;
-  margin-bottom: 50px;
-  position: relative;
-  padding-bottom: 15px;
-  animation: fadeInUp 1.5s ease-out, pulse 2s infinite;
+  line-height: 1.6;
+  padding: 0;
+  margin: 0;
 }
 
-.about-heading::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 3px;
-  background: linear-gradient(to right, #3498db, #2c3e50);
-}
-
-.about-content {
-  background-color: #f8f9fa;
-  border-radius: 15px;
-  padding: 40px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.about-text {
+/* ===================== Hero Section ===================== */
+.about-page .about-hero-static {
+  background: url('/public/assets/about.jpg') no-repeat center center/cover;
+  height: 60vh;
   display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.history-section,
-.current-section {
-  opacity: 0;
-  animation: fadeIn 1s ease-out forwards;
-}
-
-.history-section {
-  animation-delay: 0.3s;
-}
-
-.current-section {
-  animation-delay: 0.6s;
-}
-
-h2 {
-  font-size: 1.8rem;
-  color: #2c3e50;
-  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  padding-bottom: 10px;
-  text-align: center;
 }
 
-h2::after {
+.about-page .about-hero-overlay {
+  background-color: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.about-page .about-title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* ===================== New Content Section ===================== */
+.about-page .about-content {
+  padding: 4rem 1rem;
+  background-color: #ffffff;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.about-page .about-text-block {
+  margin-bottom: 3rem;
+}
+
+.about-page .about-text-block h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #003566;
+  margin-bottom: 1rem;
+}
+
+.about-page .about-text-block p {
+  font-size: 1.05rem;
+  color: #333333;
+  line-height: 1.75;
+}
+
+/* ===================== Parallax Section ===================== */
+.about-page .about-parallax {
+  background-image: url('https://github.com/kmranimesh/Web-dev-toolkit/blob/main/IISc_Ansuman.png?raw=true');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  color: #ffffff;
+  padding: 4rem 1rem;
+  overflow: hidden;
+}
+
+.about-page .about-parallax::before {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 2px;
-  background-color: #3498db;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
-p {
-  line-height: 1.8;
-  color: #4a4a4a;
-  margin-bottom: 20px;
-  text-align: justify;
+.about-page .parallax-text {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
 }
 
-.image-container {
-  margin: 40px 0;
-  text-align: center;
-  opacity: 0;
-  animation: fadeIn 1s ease-out 0.9s forwards;
+.about-page .parallax-text h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #ffffff;
 }
 
-.about-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+.about-page .parallax-text p {
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: #ffffff;
 }
 
-.about-image:hover {
-  transform: scale(1.02);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* ===================== Responsive Media Queries ===================== */
 @media (max-width: 768px) {
-  .about-container {
-    padding: 40px 15px;
-  }
-
-  .about-heading {
+  .about-page .about-title {
     font-size: 2rem;
   }
 
-  .about-content {
-    padding: 25px;
+  .about-page .about-content {
+    padding: 3rem 1rem;
   }
 
-  h2 {
+  .about-page .about-text-block h2 {
     font-size: 1.5rem;
+  }
+
+  .about-page .about-text-block p {
+    font-size: 1rem;
+  }
+
+  .about-page .parallax-text h2 {
+    font-size: 1.6rem;
+  }
+
+  .about-page .parallax-text p {
+    font-size: 1rem;
+  }
+
+  .about-page .about-parallax {
+    background-attachment: scroll; /* fallback for mobile */
   }
 }
 
 @media (max-width: 480px) {
-  .about-heading {
-    font-size: 1.8rem;
+  .about-page .about-title {
+    font-size: 1.6rem;
   }
 
-  .about-content {
-    padding: 20px;
+  .about-page .about-content {
+    padding: 2.5rem 1rem;
   }
 
-  h2 {
+  .about-page .about-text-block h2 {
     font-size: 1.3rem;
+  }
+
+  .about-page .about-text-block p {
+    font-size: 0.95rem;
+  }
+
+  .about-page .parallax-text h2 {
+    font-size: 1.3rem;
+  }
+
+  .about-page .parallax-text p {
+    font-size: 0.9rem;
   }
 }

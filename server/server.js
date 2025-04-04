@@ -68,8 +68,24 @@ const upload = multer({
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: "*", credentials: true }));
+const allowedOrigins = [
+  'http://localhost:3000',             
+  'https://materials.iisc.ac.in', 
+  'https://stisv-1.onrender.com',  
+  'https://stisv.vercel.app', 
+];
 
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS not allowed from this origin'));
+    }
+  },
+  credentials: true // if using cookies or sessions
+}));
 
 // Middleware to verify JWT token
 const verifyToken = (req, res, next) => {
@@ -83,6 +99,24 @@ const verifyToken = (req, res, next) => {
     next();
   } catch (error) {
     res.status(401).json({ message: "Token is not valid" });
+  }
+};
+
+const verifyAdminToken = (req, res, next) => {
+  const token = req.header("Authorization")?.replace("Bearer ", "");
+  if (!token) {
+    return res.status(401).json({ message: "No token, authorization denied" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (decoded.role !== "admin") {
+      return res.status(403).json({ message: "Forbidden: Not an Admin" });
+    }
+    req.admin = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ message: "Invalid token" });
   }
 };
 
@@ -108,6 +142,7 @@ const userSchema = new mongoose.Schema({
   abstractSubmission: {
     title: { type: String },
     scope: { type: String },
+    abstractCode: { type: String },
     presentingType: { type: String },
     firstAuthorName: { type: String },
     firstAuthorAffiliation: { type: String },
@@ -118,6 +153,8 @@ const userSchema = new mongoose.Schema({
     presentingAuthorAffiliation: { type: String },
     abstractFile: { type: String }, // Stores the file path
     mainBody: { type: String },
+    status: { type: String, default: "Pending" }, // ✅ Stores approval status (Pending, Approved, Rejected)
+    isFinalized: { type: Boolean, default: false },
   }
 });
 
@@ -181,8 +218,6 @@ async function sendRegistrationEmails(email, givenName, fullName, familyName, ph
       subject: "Welcome to STIS-V 2025 Conference!",
       text: `Dear ${givenName},\n\nThank you for registering for STIS-V 2025.\nYour account has been successfully created.\nWe look forward to your participation.\n\nBest regards,\nSTIS-V 2025 Organizing Team`,
     };
-
-
     await transporter.sendMail(mailOptions);
     console.log("✅ Acknowledgement email sent to user:", email);
 
@@ -290,6 +325,12 @@ app.post("/submit-abstract", verifyToken, upload.single("abstractFile"), async (
     console.log("🧾 Request Body:", req.body);
     console.log("📎 File received:", req.file.originalname);
 
+    const generateAbstractCode = () => {
+      return `STIS_${Math.floor(1000 + Math.random() * 9000)}`;
+    };
+
+    const abstractCode = generateAbstractCode();
+
     // Upload to Cloudinary
     const uploadToCloudinary = () => {
       return new Promise((resolve, reject) => {
@@ -321,6 +362,10 @@ app.post("/submit-abstract", verifyToken, upload.single("abstractFile"), async (
           "abstractSubmission.presentingAuthorAffiliation": presentingAuthorAffiliation,
           "abstractSubmission.abstractFile": cloudinaryResult.secure_url,
           "abstractSubmission.mainBody": mainBody,
+          "abstractSubmission.abstractCode": abstractCode, // ✅ Save Abstract Code
+          "abstractSubmission.isFinalized": false,
+          "abstractSubmission.status": "Pending",
+          "abstractSubmission.timestamp": new Date().toLocaleString(),
         }
       },
       { new: true, upsert: true }
@@ -340,12 +385,13 @@ app.post("/submit-abstract", verifyToken, upload.single("abstractFile"), async (
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: user.email,
-      subject: "Abstract Submission Received Confirmation - STIS-V 2025 Conference",
+      subject: ' Abstract Submission Received Confirmation - STIS-V 2025 Conference',
       text: `Dear ${user.givenName || user.fullName || "Author"},
 
-We are pleased to confirm that we have received your submission successfully.
-Please note that all submissions will be carefully reviewed, and you can expect to hear from us by 31st May 2025.
-We truly appreciate your contribution and look forward to your active participation in the Conference.
+We are pleased to confirm that we have received your submission successfully.This is the abstract code for your submission: **${abstractCode}**.
+This code will be used for all future corresponence regarding your submission.Please note that all submissions will be carefully reviewed, 
+and you can expect to hear from us by 31st May 2025.We truly appreciate your contribution and look forward to your active participation in 
+the Conference.
 
 Thanking you and with best regards,
 
@@ -366,7 +412,7 @@ const adminAbstractMail = {
   to: "stis.mte@iisc.ac.in",
   subject: `New Abstract Submission from ${user.fullName}`,
   text: `A new abstract has been submitted.
-
+Abstract Code: ${abstractCode}
 Full Name: ${user.fullName}
 Email: ${user.email}
 Phone: ${user.phone}
@@ -405,6 +451,279 @@ try {
 
   } catch (error) {
     console.error("Error submitting abstract:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+app.post("/submit-query", async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+
+    if (!name || !email || !message) {
+      return res.status(400).json({ message: "All fields are required!" });
+    }
+
+    // ✅ Send email to Conference Secretariat
+    const adminMailOptions = {
+      from: process.env.EMAIL_USER,
+      to: "stis.mte@iisc.ac.in", // Admin Email
+      subject: `New Query from ${name}`,
+      text: `A new query has been submitted:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}\n\nPlease respond to the user soon.`,
+    };
+
+    await transporter.sendMail(adminMailOptions);
+    console.log("✅ Query email sent to admin");
+
+    // ✅ Send confirmation email to user
+    const userMailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Query Received - STIS-V 2025",
+      text: `Dear ${name},\n\nThank you for reaching out to us!\n\nWe have received your query and will get back to you shortly.\n\nBest regards,\nSTIS-V 2025 Team`,
+    };
+
+    await transporter.sendMail(userMailOptions);
+    console.log("✅ Confirmation email sent to user:", email);
+
+    res.status(200).json({ message: "Query submitted successfully!" });
+
+  } catch (error) {
+    console.error("❌ Error submitting query:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+app.get("/get-all-abstracts", async (req, res) => {
+  try {
+    const abstracts = await User.find({}, "uid fullName email abstractSubmission");
+    res.json({ abstracts });
+  } catch (error) {
+    console.error("Error fetching abstracts:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
+
+app.put("/update-abstract", verifyToken, upload.single("abstractFile"), async (req, res) => {
+  try {
+    const uid = req.body.uid;
+    if (!uid) return res.status(400).json({ message: "User ID is required" });
+
+    console.log(`🔹 Updating abstract for UID: ${uid}`);
+
+    let updateData = {};
+    let googleSheetUpdateRequired = false; // ✅ Prevent unnecessary Google Sheets updates
+
+    // ✅ Update Only Provided Fields
+    ["title", "scope", "presentingType", "firstAuthorName", "firstAuthorAffiliation",
+     "otherAuthors", "presentingAuthorName", "presentingAuthorAffiliation", "mainBody"]
+    .forEach(field => {
+      if (req.body[field]) {
+        updateData[`abstractSubmission.${field}`] = req.body[field];
+        googleSheetUpdateRequired = true;
+      }
+    });
+
+    // ✅ Handle File Upload
+    if (req.file) {
+      console.log("📎 Uploading new abstract file...");
+
+      const uploadToCloudinary = () => {
+        return new Promise((resolve, reject) => {
+          const stream = cloudinary.uploader.upload_stream(
+            { resource_type: "auto", folder: "abstracts" },
+            (error, result) => (error ? reject(error) : resolve(result))
+          );
+          stream.end(req.file.buffer);
+        });
+      };
+
+      const cloudinaryResult = await uploadToCloudinary();
+      updateData["abstractSubmission.abstractFile"] = cloudinaryResult.secure_url;
+      console.log(`✅ New File Uploaded: ${cloudinaryResult.secure_url}`);
+      googleSheetUpdateRequired = true;
+    }
+
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).json({ message: "No valid fields provided for update." });
+    }
+
+    // ✅ Update MongoDB
+    const user = await User.findOneAndUpdate({ uid }, { $set: updateData }, { new: true });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    console.log("✅ Abstract updated successfully in MongoDB!");
+
+    // ✅ Update Google Sheets Only If Data Changed
+    if (googleSheetUpdateRequired) {
+      console.log("🔄 Updating Google Sheets...");
+      await updateGoogleSheet(user, true);
+      console.log("✅ Google Sheets updated successfully!");
+    }
+
+    res.json({ message: "Abstract updated successfully", abstract: user.abstractSubmission });
+
+    // ✅ Send update confirmation email to user
+const updateMailOptions = {
+  from: process.env.EMAIL_USER,
+  to: user.email,
+  subject: 'Abstract Update Confirmation - STIS-V 2025',
+  text: `Dear ${user.givenName || user.fullName || "Participant"},
+
+Your abstract has been successfully updated in the STIS-V 2025 system.
+
+You can download your updated abstract from the following link:
+${user.abstractSubmission.abstractFile}
+
+If you did not request this update or have any concerns, please contact the organizing team at stis.mte@iisc.ac.in.
+
+Best regards,  
+STIS-V 2025 Organizing Committee`,
+};
+
+try {
+  await transporter.sendMail(updateMailOptions);
+  console.log("✅ Abstract update confirmation sent to user:", user.email);
+} catch (emailErr) {
+  console.error("❌ Failed to send user abstract update email:", emailErr.message);
+}
+
+// ✅ Also notify admin
+const adminUpdateMail = {
+  from: process.env.EMAIL_USER,
+  to: "stis.mte@iisc.ac.in",
+  subject: `Abstract Updated by ${user.fullName}`,
+  text: `The following participant has updated their abstract:
+
+Name: ${user.fullName}
+Email: ${user.email}
+UID: ${user.uid}
+
+Updated Abstract Link:
+${user.abstractSubmission.abstractFile}
+
+Please verify and review the submission in the admin panel.
+
+Regards,  
+STIS-V Submission System`,
+};
+
+try {
+  await transporter.sendMail(adminUpdateMail);
+  console.log("✅ Abstract update notification sent to admin.");
+} catch (adminErr) {
+  console.error("❌ Failed to send admin update email:", adminErr.message);
+}
+
+
+  } catch (error) {
+    console.error("❌ Error updating abstract:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+// Admin Schema
+const adminSchema = new mongoose.Schema({
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+});
+
+const Admin = mongoose.model("Admin", adminSchema);
+
+// Admin Login Endpoint
+app.post("/admin/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const admin = await Admin.findOne({ email });
+
+    if (!admin) return res.status(400).json({ message: "Admin not found" });
+
+    const isMatch = await bcrypt.compare(password, admin.password);
+    if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+
+    const token = jwt.sign({ id: admin._id, role: "admin" }, process.env.JWT_SECRET, { expiresIn: "8h" });
+
+    res.json({ message: "Login successful", token });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+app.put("/admin/update-abstract-status", verifyAdminToken, async (req, res) => {
+  try {
+    const { uid, status } = req.body;
+
+    if (!uid || !status) {
+      return res.status(400).json({ message: "UID and status are required." });
+    }
+
+    if (!["Approved", "Rejected"].includes(status)) {
+      return res.status(400).json({ message: "Invalid status value." });
+    }
+
+    const user = await User.findOneAndUpdate(
+      { uid },
+      { $set: { "abstractSubmission.status": status } },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Send Email Notification to User
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: user.email,
+      subject: `Abstract Submission Status - STIS-V 2025`,
+      text: `Dear ${user.fullName},\n\nYour abstract submission has been **${status}**.\n\nThank you for your participation!\n\nBest Regards,\nSTIS-V 2025 Team`,
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log(`✅ Email sent to ${user.email} for status update: ${status}`);
+
+    res.json({ message: `Abstract ${status} successfully`, user });
+  } catch (error) {
+    console.error("Error updating abstract status:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+
+
+app.post("/finalize-abstract", verifyToken, async (req, res) => {
+  try {
+    const { uid } = req.body;
+
+    if (!uid) {
+      return res.status(400).json({ message: "User ID is required." });
+    }
+
+    console.log(`✅ Finalizing abstract for UID: ${uid}`);
+
+    // ✅ Update the abstract in MongoDB to set `isFinalized = true`
+    const user = await User.findOneAndUpdate(
+      { uid },
+      { $set: { "abstractSubmission.isFinalized": true } },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    console.log("✅ Abstract successfully finalized in MongoDB!");
+
+    // ✅ Update Google Sheets (if required)
+    console.log("🔄 Updating Google Sheets...");
+    await updateGoogleSheet(user, true);
+    console.log("✅ Google Sheets updated successfully!");
+
+    res.status(200).json({ message: "Abstract finalized successfully", abstract: user.abstractSubmission });
+
+  } catch (error) {
+    console.error("❌ Error finalizing abstract:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });

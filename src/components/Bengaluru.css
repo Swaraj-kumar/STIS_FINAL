@@ -1,155 +1,222 @@
-.bengaluru-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: 80vh;
-    text-align: center;
-    padding: 80px 20px;
+/* ========================
+   Container & Layout
+======================== */
+.bengaluru-wrapper {
+    font-family: 'Segoe UI', sans-serif;
+    padding: 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: whitesmoke;
-}
-
-.bengaluru-header {
-    background-color: #1a365d;
-    color: white;
-    padding: 2rem 1rem;
-    margin: -50px -20px 0;
-    animation: fadeIn 1s ease-out;
-}
-
-.bengaluru-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    letter-spacing: 1px;
-    animation: fadeInUp 1.5s ease-out, pulse 2s infinite;
-
-}
-
-.bengaluru-header p {
+    color: #1a1a1a;
+    background-color: #f7f9fb;
+  }
+  
+  /* ========================
+     Header
+  ======================== */
+  .bengaluru-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  
+  .bengaluru-header h1 {
+    font-size: 2.75rem;
+    color: #003566;
+    margin-bottom: 0.5rem;
+  }
+  
+  .bengaluru-header .subtitle {
     font-size: 1.2rem;
-    color: white;
-    text-align: center;
-}
-
-.bengaluru-navigation {
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    margin: 0 -20px;
-}
-
-.navigation-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    overflow-x: auto;
-}
-
-.navigation-buttons {
+    color: #555;
+  }
+  
+ 
+  
+  /* ========================
+     Tab Navigation
+  ======================== */
+  .bengaluru-tabs {
     display: flex;
-    gap: 1rem;
-    padding: 0.5rem;
-}
-
-.nav-button {
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    border: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  
+  .bengaluru-tab {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 2px solid #0077b6;
+    background-color: white;
+    color: #0077b6;
+    border-radius: 6px;
     cursor: pointer;
-    white-space: nowrap;
     transition: all 0.3s ease;
-    background-color: #f3f4f6;
-}
-
-.nav-button:hover {
-    background-color: #e5e7eb;
-}
-
-.nav-button.active {
-    background-color: #1a365d;
+  }
+  
+  .bengaluru-tab:hover,
+  .bengaluru-tab.active {
+    background-color: #0077b6;
     color: white;
-}
-
-.content-section {
-    background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    margin-top: 2rem;
-    text-align: left;
-}
-
-.category-content {
-    display: flex;
-    flex-direction: column;
+  }
+  
+  /* ========================
+     Section
+  ======================== */
+  .bengaluru-section {
+    display: grid;
     gap: 2rem;
-}
-
-.content-item {
-    padding: 1rem;
-    border-bottom: 1px solid #e5e7eb;
-    animation: fadeIn 0.5s ease-out;
-    text-align: center;
-}
-
-.content-item:last-child {
-    border-bottom: none;
-}
-
-.content-item h2 {
-    color: #1a365d;
-    font-size: 1.5rem;
+  }
+  
+  .bengaluru-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+  
+  /* ========================
+     Card Styling
+  ======================== */
+  .bengaluru-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .bengaluru-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .bengaluru-card h3 {
+    font-size: 1.3rem;
+    color: #003566;
+    margin-bottom: 0.5rem;
+  }
+  
+  .bengaluru-card p {
+    font-size: 1rem;
+    color: #444;
     margin-bottom: 1rem;
-}
-
-.content-item p {
-    color: #4a5568;
     line-height: 1.6;
-}
-
-.attribution {
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid #e5e7eb;
-    color: #666;
-}
-
-.attribution a {
-    color: #1a365d;
+  }
+  
+  .bengaluru-link {
+    color: #0077b6;
+    font-weight: 600;
     text-decoration: none;
-}
-
-.attribution a:hover {
+  }
+  
+  .bengaluru-link:hover {
     text-decoration: underline;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+  }
+  
+  /* ========================
+     Footer
+  ======================== */
+  .bengaluru-footer {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 0.95rem;
+    color: #777;
+  }
+  
+  .bengaluru-footer a {
+    color: #003566;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .bengaluru-footer a:hover {
+    text-decoration: underline;
+  }
+  
+  /* ========================
+     Responsive
+  ======================== */
+ 
+  @media (max-width: 768px) {
+    .bengaluru-wrapper {
+      padding: 1.5rem;
     }
-    to {
-        opacity: 1;
-    }
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
+  
     .bengaluru-header h1 {
-        font-size: 2rem;
+      font-size: 2.2rem;
+    }
+  
+    .bengaluru-header .subtitle {
+      font-size: 1.05rem;
+    }
+  
+    .bengaluru-tabs {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .bengaluru-tab {
+      width: 100%;
+      text-align: center;
+      font-size: 0.95rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .bengaluru-wrapper {
+      padding: 1rem;
+    }
+    
+    .bengaluru-header h1 {
+      font-size: 1.75rem;
+    }
+  
+    .bengaluru-header .subtitle {
+      font-size: 0.95rem;
+    }
+  
+    .bengaluru-card {
+      padding: 1.2rem;
+    }
+  
+    .bengaluru-card h3 {
+      font-size: 1.1rem;
+    }
+  
+    .bengaluru-card p {
+      font-size: 0.95rem;
+    }
+  
+    .bengaluru-footer {
+      font-size: 0.85rem;
+    }
+  
+    .bengaluru-cards {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  
+    .bengaluru-tab {
+      font-size: 0.9rem;
     }
 
-    .bengaluru-header p {
-        font-size: 1rem;
+    .bengaluru-tabs {
+      flex-direction: unset;
+      display: inline-block;
+      
+      align-items: center;
     }
 
-    .content-section {
-        padding: 1rem;
+    .bengaluru-tab:last-child:nth-child(odd):not(:only-child) {
+      margin-left: 6rem;
     }
-
-    .content-item h2 {
-        font-size: 1.25rem;
+  
+    .bengaluru-tab {
+      width: 50%;
+      text-align: center;
+      font-size: 0.95rem;
+      gap : 0.5rem;
     }
-}
+  }
+  

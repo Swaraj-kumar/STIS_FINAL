@@ -1,31 +1,45 @@
 import React from 'react';
 import './Programme.css';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 const Programme = () => {
-    return (
-        <div className="programme-container">
-            <div className="heading-image-programme">
-                <h1 className="programme-heading">Conference Programme</h1>
-            </div>
-
-            <h2 className="important-dates-heading">Important Dates</h2>
-            
-            <div className="dates-cards-container">
-                <div className="date-card">
-                    <h3>Abstract Submission</h3>
-                    <p>30th April 2025 </p>
-                </div>
-                <div className="date-card">
-                    <h3>Acceptance of the Abstract</h3>
-                    <p>30th May 2025</p>
-                </div>
-                <div className="date-card">
-                    <h3>Submission of Paper / Extended Abstract</h3>
-                    <p>30th September 2025</p>
-                </div>
-            </div>
+  return (
+<>
+<Navbar />
+    <div className="programme-container">
+      {/* Hero Section */}
+      <section className="programme-hero">
+        <div className="programme-hero-overlay">
+          <h1 className="programme-title">Conference Programme</h1>
+          <p className="programme-subtitle">Your Roadmap to STIS-V 2025</p>
         </div>
-    );
+      </section>
+
+      {/* Important Dates */}
+      <section className="important-dates-section">
+        <h2 className="important-dates-heading">Important Dates</h2>
+        <div className="dates-cards-container">
+          <div className="date-card">
+            <h3>Abstract Submission</h3>
+            <p>30<sup>th</sup> April 2025</p>
+          </div>
+          <div className="date-card">
+            <h3>Acceptance Notification</h3>
+            <p>30<sup>th</sup> May 2025</p>
+          </div>
+          <div className="date-card">
+            <h3>Final Paper Submission</h3>
+            <p>30<sup>th</sup> September 2025</p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <br />
+    <br />
+    <Footer />
+    </>
+  );
 };
 
 export default Programme;

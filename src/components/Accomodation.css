@@ -1,593 +1,390 @@
-/* Main Container */
+/* Global */
 .accommodation-container {
-    padding: 2rem;
-    max-width: 1440px;
-    margin: 0 auto;
-    background: #f8fafc;
-    font-family: system-ui, -apple-system, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  animation: fadeIn 0.6s ease;
+  font-family: 'Segoe UI', Roboto, sans-serif;
 }
 
-.hero-section {
-    text-align: center; 
-    padding: 4rem;
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-    border-radius: 24px;
-    color: white;
-    margin-bottom: 3.5rem;
-    opacity: 0;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+.fade-in {
+  animation: fadeIn 1s ease-in-out forwards;
 }
 
-
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    pointer-events: none;
+/* Intro Section */
+.intro-section {
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
-.hero-section.fade-in {
-    animation: fadeInUp 0.8s ease forwards;
+.accommodation-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
-.hero-section h1 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
-    max-width: 800px;
-    margin-left: auto; /* Added for center alignment */
-    margin-right: auto; /* Added for center alignment */
-    background: linear-gradient(45deg, #ffffff 0%, #e2e8f0 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+.accommodation-subtext {
+  font-size: 1.1rem;
+  color: #555;
 }
 
-.hero-section p {
-    font-size: 1.25rem;
-    color: #e2e8f0;
-    margin-bottom: 3rem;
-    line-height: 1.6;
-    max-width: 600px;
-}
-
+/* Key Info */
 .key-info-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    max-width: 900px;
-    margin: 3rem auto 0; /* Center the grid */
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
 }
 
 .key-info-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 2rem;
-    border-radius: 16px;
-    text-align: center; /* Center the content */
-    transition: all 0.3s ease;
+  background: #f7f9fc;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  text-align: center;
+  flex: 1;
+  min-width: 220px;
+  transition: transform 0.2s ease;
 }
 
-.key-info-card p{
-    text-align: center;
+.key-info-card:hover {
+  transform: translateY(-4px);
 }
 
-/* Updated Book Now Button */
-.book-button {
-    width: 100%;
-    padding: 1rem;
-    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-    color: white;
-    border: none;
-    border-radius: 0.75rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+.key-info-card h3 {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
-.book-button:hover {
-    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+.key-info-card p {
+  color: #444;
+  font-size: 0.95rem;
 }
 
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
+/* Hotel Cards */
+.hotels-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem 2rem;
+  justify-content: center;
 }
 
-.info-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 2rem;
-    border-radius: 16px;
-    transition: all 0.3s ease;
-}
-
-.info-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.info-icon {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #60a5fa;
-}
-
-.info-card h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #fff;
-}
-
-.info-card p {
-    font-size: 1rem;
-    color: #e2e8f0;
-    margin: 0;
-}
-
-.cancellation-policy {
-    margin-top: 5rem;
-    padding: 3rem;
-    background: white;
-    border-radius: 24px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Center the heading */
-}
-
-.cancellation-policy h2 {
-    font-size: 2rem;
-    color: #0f172a;
-    margin-bottom: 2rem;
-    font-weight: 700;
-}
-
-.policy-section {
-    margin-top: 5rem;
-    padding: 3rem;
-    background: white;
-    border-radius: 24px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-                0 2px 4px -2px rgba(0, 0, 0, 0.1);
-}
-
-.policy-section h2 {
-    font-size: 2rem;
-    color: #0f172a;
-    margin-bottom: 2rem;
-    text-align: center;
-    font-weight: 700;
-}
-
-.policy-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    padding: 1rem;
-}
-
-.policy-card {
-    background: #f8fafc;
-    padding: 2rem;
-    border-radius: 16px;
-    text-align: center;
-    transition: all 0.3s ease;
-    border: 1px solid #e2e8f0;
-    position: relative;
-    overflow: hidden;
-}
-
-.policy-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(to right, #3b82f6, #1d4ed8);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.policy-card:hover::before {
-    opacity: 1;
-}
-
-.policy-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-.policy-icon {
-    width: 48px;
-    height: 48px;
-    color: #1e40af;
-    margin-bottom: 1rem;
-}
-
-.policy-card h3 {
-    color: #1e3a8a;
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-}
-
-.policy-card p {
-    color: #475569;
-    line-height: 1.6;
-    font-size: 1rem;
-    text-align: center;
-}
-
-/* Hotels Grid */
-.hotels-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
-}
-
-/* Hotel Card */
 .hotel-card {
-    background: white;
-    border-radius: 1.25rem;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    border: 1px solid #e2e8f0;
-    cursor: pointer;
-    position: relative;
-}
-
-.hotel-card.slide-in {
-    animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: fit-content;
+  transition: transform 0.25s ease;
+  position: relative;
 }
 
 .hotel-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+
 }
 
-.hotel-card-header {
-    padding: 1.5rem;
-    background: linear-gradient(to right, #f1f5f9, #e2e8f0);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.hotel-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
 }
 
-.category-badge {
-    background: #1e3a8a;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    font-size: 0.875rem;
-    font-weight: 500;
+.hotel-category {
+  font-weight: 600;
+  background: #f0f4ff;
+  color: #004aad;
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
 }
 
-.distance-badge {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #475569;
-    font-size: 0.875rem;
-    background: white;
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
+.hotel-distance {
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  color: #666;
+  gap: 5px;
 }
 
-.hotel-card-content {
-    padding: 1.5rem;
+.hotel-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
 }
 
-.hotel-card-content h2 {
-    font-size: 1.5rem;
-    color: #1e3a8a;
-    margin-bottom: 1rem;
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-.description {
-    color: #475569;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
+.hotel-description {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
 }
 
 /* Amenities */
 .amenities-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1.2rem;
 }
 
-.amenity-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: #f8fafc;
-    padding: 0.5rem 1rem;
-    border-radius: 0.75rem;
-    font-size: 0.875rem;
-    color: #475569;
-    transition: all 0.2s ease;
+.amenity {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: #444;
 }
 
-.amenity-item:hover {
-    background: #f1f5f9;
-    transform: translateY(-2px);
+/* Rate Section */
+.hotel-bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
-/* Rates */
-.rates-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+.rates-section {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
 }
 
 .rate-card {
-    background: #f8fafc;
-    padding: 1rem;
-    border-radius: 1rem;
-    text-align: center;
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  flex: 1;
+  min-width: 130px;
 }
 
 .rate-card span {
-    font-size: 0.875rem;
-    color: #475569;
+  display: block;
+  font-size: 0.85rem;
+  color: #555;
 }
 
 .rate-card strong {
-    display: block;
-    font-size: 1.25rem;
-    color: #1e3a8a;
-    margin: 0.25rem 0;
+  font-size: 1.15rem;
+  color: #111;
 }
 
 .rate-card small {
-    color: #64748b;
-    font-size: 0.75rem;
+  display: block;
+  font-size: 0.75rem;
+  color: #777;
+  margin-top: 4px;
 }
 
-/* Buttons */
-.details-button {
-    width: 100%;
-    padding: 1rem;
-    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-    color: white;
-    border: none;
-    border-radius: 0.75rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
+/* Book Button */
+.book-button {
+  background-color: #0077b6;
+  color: white;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-left: 90px;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  font-size: 0.95rem;
+  transition: background 0.2s ease;
 }
 
-.details-button:hover {
-    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+.book-button:hover {
+  background-color: white;
+  color: #0077b6;
+  border: 2px solid #0077b6;
 }
 
-/* Modal */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(8px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    z-index: 50;
+/* Cancellation Section */
+.cancellation-policy {
+  margin-top: 4rem;
+  text-align: center;
 }
 
-.modal-content {
-    background: white;
-    border-radius: 1.5rem;
-    max-width: 800px;
-    width: 95%;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
-    animation: modalSlideUp 0.3s ease;
+.cancellation-policy h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
 }
 
-.modal-header {
-    padding: 2rem;
-    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-    color: white;
+.policy-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
-.modal-body {
-    padding: 2rem;
+.policy-card {
+  background: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  width: 240px;
 }
 
-.close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
+/* Center last hotel card if not filling row */
+.hotels-section > .hotel-card:last-child:nth-child(3n + 2):not(:only-child),
+.hotels-section > .hotel-card:last-child:nth-child(3n + 1):not(:only-child) {
+  grid-column: 2 / 3;
+  justify-self: center;
 }
 
-.close-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: scale(1.1);
+.policy-icon {
+  color: #004aad;
+  margin-bottom: 0.5rem;
 }
 
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.policy-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
 }
 
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.policy-card p {
+  color: #555;
+  font-size: 0.9rem;
 }
 
-@keyframes modalSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Responsive Design */
-@media (max-width: 1200px) {
-    .hotels-grid {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
+/* Responsive – Tablets */
+@media (max-width: 1024px) {
+  .hotels-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-    .accommodation-container {
-        padding: 1rem;
-    }
+  .accommodation-title {
+    font-size: 2rem;
+  }
 
-    .hero-section {
-        padding: 3rem 1.5rem;
-    }
+  .accommodation-subtext {
+    font-size: 1rem;
+  }
 
-    .rates-grid {
-        grid-template-columns: 1fr;
-    }
+  .key-info-grid {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .modal-content {
-        width: 100%;
-        height: 100%;
-        max-height: 100vh;
-        border-radius: 0;
-    }
+  .key-info-card {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .hotel-card {
+    padding: 1.2rem;
+  }
+
+  .hotel-name {
+    font-size: 1.15rem;
+  }
+
+  .rates-section {
+    flex-direction: column;
+  }
+
+  .rate-card {
+    width: 100%;
+  }
+
+  .book-button {
+    margin-left: 0;
+    align-self: center;
+  }
+
+  .cancellation-policy h2 {
+    font-size: 1.5rem;
+  }
+
+  .policy-card {
+    width: 100%;
+    max-width: 320px;
+  }
 }
 
+/* Responsive – Phones */
 @media (max-width: 480px) {
-    .hotel-card-header {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
-    }
-
-    .amenities-list {
-        flex-direction: column;
-    }
-
-    .amenity-item {
-        width: 100%;
-    }
-}
-
-/* Scrollbar Styling */
-.modal-content {
-    scrollbar-width: thin;
-    scrollbar-color: #cbd5e1 #f1f5f9;
-}
-
-.modal-content::-webkit-scrollbar {
-    width: 8px;
-}
-
-.modal-content::-webkit-scrollbar-track {
-    background: #f1f5f9;
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-    background-color: #cbd5e1;
-    border-radius: 20px;
-    border: 2px solid #f1f5f9;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-    :root {
-      --spacing-xl: 2rem;
-      --spacing-lg: 1.5rem;
-    }
+  .accommodation-title {
+    font-size: 1.6rem;
+  }
+  .accommodation-container{
+    margin-right: 3rem;
     
-    .hotels-grid {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
   }
-  
-  @media (max-width: 768px) {
-    .accommodation-container {
-      padding: var(--spacing-sm);
-    }
-  
-    .hero-section {
-      padding: var(--spacing-lg);
-    }
-  
-    .key-info-grid {
-      grid-template-columns: 1fr;
-    }
-  
-    .amenity-item {
-      flex: 1 1 100%;
-    }
+
+  .accommodation-subtext {
+    font-size: 0.85rem;
   }
-  
-  @media (max-width: 480px) {
-    .hotel-card-header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .rates-grid {
-      grid-template-columns: 1fr;
-    }
-  
-    .hero-section h1 {
-      font-size: 2rem;
-    }
+
+  .hotel-name {
+    font-size: 1rem;
   }
+
+  .hotels-section{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .hotel-card {
+    width: 75%;
+  }
+  .hotel-description {
+    font-size: 0.9rem;
+  }
+
+  .amenities-list {
+    flex-direction: column;
+  }
+
+
+  .rate-card {
+    width: 75%;
+  }
+  .rate-card strong {
+    font-size: 1rem;
+  }
+
+  .book-button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .cancellation-policy h2 {
+    font-size: 1.4rem;
+  }
+
+  .policy-card h3 {
+    font-size: 0.95rem;
+  }
+
+  .policy-card p {
+    font-size: 0.85rem;
+  }
+}

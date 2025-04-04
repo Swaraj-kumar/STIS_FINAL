@@ -1,103 +1,105 @@
 import React, { useState, useEffect } from 'react';
 import './Electricity.css';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 const Electricity = () => {
-    const [activeTab, setActiveTab] = useState('voltage');
-    const [showAdaptor, setShowAdaptor] = useState(false);
+  const [activeTab, setActiveTab] = useState('voltage');
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+  const specifications = {
+    voltage: {
+      title: "Standard Voltage & Frequency",
+      content: "India operates on 230V AC at 50Hz frequency. It's essential to check your equipment compatibility before use.",
+      details: [
+        "Voltage fluctuations are common in certain regions.",
+        "Three-phase power is used in commercial buildings and some homes.",
+        "Most conference venues provide power backup systems."
+      ]
+    },
+    sockets: {
+      title: "Power Socket Types",
+      content: "The most common plug types in India are Type C and Type D.",
+      details: [
+        "Type C: Two round pins (2.5A), compatible with European devices.",
+        "Type D: Three round pins (5A), common in Indian households.",
+        "Type M: Three round pins (15A), used for heavy appliances."
+      ]
+    },
+    adaptors: {
+      title: "Adaptor Recommendations",
+      content: "International visitors should bring a multi-socket universal adaptor.",
+      details: [
+        "Choose adaptors with surge protection.",
+        "USB-compatible ports offer added convenience.",
+        "Check that your adaptor supports 230V, 50Hz."
+      ]
+    }
+  };
 
-    const specifications = {
-        voltage: {
-            title: "Standard Voltage & Frequency",
-            content: "India uses 230V AC electricity at 50Hz frequency.",
-            details: [
-                "Voltage fluctuations are common in some areas",
-                "Three-phase connections are used in some regions",
-                "Power backup systems are available in most conference venues"
-            ]
-        },
-        sockets: {
-            title: "Power Sockets",
-            content: "India primarily uses Type C and Type D sockets.",
-            details: [
-                "Type C: 2-pin European style (2.5 amp)",
-                "Type D: 3-pin British style (5 amp)",
-                "Type M: 3-pin (15 amp) for heavy appliances"
-            ]
-        },
-        adaptors: {
-            title: "Recommended Adaptors",
-            content: "International visitors should carry universal adaptors.",
-            details: [
-                "Multi-socket universal adaptor",
-                "Surge protection recommended",
-                "USB ports for convenience"
-            ]
-        }
-    };
+  return (
+    <>
+        <Navbar />
+    <main className="electricity-container">
+      <div className="content-wrapper">
+        <header className="header">
+          <h1 className="page-title">Electrical Specifications in India</h1>
+          <p className="intro-text">
+            This section provides important information on electrical standards in India to help you prepare your devices and adaptors before arrival.
+          </p>
+        </header>
 
-    const handleAdaptorClick = () => {
-        setShowAdaptor(!showAdaptor);
-    };
+        {/* Tabs */}
+        <nav className="tab-navigation" role="tablist" aria-label="Electrical Info Tabs">
+          {Object.keys(specifications).map((key) => (
+            <button
+              key={key}
+              role="tab"
+              className={`tab-button ${activeTab === key ? 'active' : ''}`}
+              onClick={() => setActiveTab(key)}
+              aria-selected={activeTab === key}
+              aria-controls={`tab-panel-${key}`}
+            >
+              {specifications[key].title}
+            </button>
+          ))}
+        </nav>
 
-    return (
-        <div className="electricity-container">
-            <div className="content-wrapper">
-                <h1 className="main-title">Electrical Specifications In India</h1>
-                
-                <div className="tabs">
-                    {Object.keys(specifications).map(key => (
-                        <button 
-                            key={key}
-                            className={`tab-button ${activeTab === key ? 'active' : ''}`}
-                            onClick={() => setActiveTab(key)}
-                        >
-                            {specifications[key].title}
-                        </button>
-                    ))}
-                </div>
+        {/* Tab Content */}
+        <section
+          id={`tab-panel-${activeTab}`}
+          className="tab-panel"
+          role="tabpanel"
+          aria-labelledby={activeTab}
+        >
+          <article className="tab-content">
+            <h2 className="section-title">{specifications[activeTab].title}</h2>
+            <p className="section-summary">{specifications[activeTab].content}</p>
+            <ul className="spec-details">
+              {specifications[activeTab].details.map((item, index) => (
+                <li key={index} className="spec-item">{item}</li>
+              ))}
+            </ul>
+          </article>
+        </section>
 
-                <div className="info-section">
-                    <h2>{specifications[activeTab].title}</h2>
-                    <p className="main-content">{specifications[activeTab].content}</p>
-                    <ul className="details-list">
-                        {specifications[activeTab].details.map((detail, index) => (
-                            <li key={index} className="detail-item">{detail}</li>
-                        ))}
-                    </ul>
-                </div>
-
-                {/* <div className="interactive-section">
-                    <button className="adaptor-button" onClick={handleAdaptorClick}>
-                        Need an Adaptor? Check Here
-                    </button>
-                    
-                    {showAdaptor && (
-                        <div className="adaptor-guide">
-                            <h3>Adaptor Guide</h3>
-                            <div className="adaptor-links">
-                                <a href="https://www.amazon.in/travel-adaptors" target="_blank" rel="noopener noreferrer" className="shop-link">
-                                    Shop on Amazon India
-                                </a>
-                                <a href="https://www.flipkart.com/travel-adaptors" target="_blank" rel="noopener noreferrer" className="shop-link">
-                                    Shop on Flipkart
-                                </a>
-                            </div>
-                        </div>
-                    )}
-                </div> */}
-
-                <div className="safety-note">
-                    <h3>⚠️ Important Safety Note</h3>
-                    <p>Always ensure your devices are compatible with Indian power specifications. Consider using surge protectors for sensitive equipment.</p>
-                </div>
-            </div>
-        </div>
-    );
+        {/* Safety Note */}
+        <section className="safety-section">
+          <h3 className="safety-heading">Safety Note</h3>
+          <p className="safety-text">
+            Ensure that your devices support 230V, 50Hz input. For laptops, cameras, and sensitive electronics, using surge-protected adaptors is strongly recommended.
+          </p>
+        </section>
+      </div>
+    </main>
+    <br />
+    <br />
+    <Footer />
+    </>
+  );
 };
 
 export default Electricity;

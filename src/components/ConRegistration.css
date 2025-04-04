@@ -231,31 +231,71 @@ body {
   /* Continue rest of keyframes as before */
 }
 
-/*add*/
+/* ============================
+   Responsive Design
+============================ */
+@media (max-width: 768px) {
+  .registration-page {
+    padding: 1.5rem;
+  }
 
+  .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
 
-
-
-
-
-/* MOBILE RESPONSIVENESS */
-@media (max-width: 480px) {
   .login-container {
     padding: 1.5rem;
   }
 
+  .login-container input {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
   .remember-forgot {
-    flex-wrap: wrap; /* Allows elements to wrap if space is limited */
-    justify-content: center; /* Centers elements */
-    gap: 5px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .login-btn,
+  .register-btn {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 1.25rem;
+  }
+
+  .page-title {
+    font-size: 1.3rem;
+  }
+
+  .login-container input {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .eye-icon {
+    right: 8px;
+    font-size: 0.9rem;
   }
 
   .forgot-password {
-    width: 100%;
-    text-align: center;
-    margin-top: 8px;
+    font-size: 0.85rem;
+  }
+
+  .login-btn,
+  .register-btn {
+    font-size: 0.9rem;
+    padding: 10px;
   }
 }
+
+
 
 
 

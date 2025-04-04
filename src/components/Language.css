@@ -1,28 +1,75 @@
-.language-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh; /* Adjust height as needed */
-    text-align: center;
-    padding: 50px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: whitesmoke;
+.language-page {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  padding: 4rem 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
-.coming-soon-quote h1 {
-    font-size: 3rem;
-    color: #2c3e50; 
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    animation: fadeInUp 1.5s ease-out, pulse 2s infinite;
+.underline {
+  width: 80px;
+  height: 4px;
+  background-color: #0077b6;
+  margin: 0 auto;
+  margin-top: -1rem;
+  border-radius: 2px;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+.language-page h1 {
+  font-size: 2.2rem;
+  color: #003566;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: -2rem;
+  
+}
+
+.language-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.language-content li {
+  margin-bottom: 1.5rem;
+}
+
+.language-content p {
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.language-content span {
+  font-weight: 600;
+  color: #0077b6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .language-page {
+    padding: 2.5rem 1rem;
+  }
+
+  .language-page h1 {
+    font-size: 1.8rem;
+  }
+
+  .language-content p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .language-page {
+    padding: 2rem 1rem;
+  }
+
+  .language-page h1 {
+    font-size: 1.5rem;
+  }
+
+  .language-content p {
+    font-size: 0.95rem;
+  }
 }

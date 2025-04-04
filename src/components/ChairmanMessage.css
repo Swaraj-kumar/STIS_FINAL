@@ -1,44 +1,101 @@
+/* === Wrapper === */
+.chairman-message-wrapper {
+  max-width: 960px;
+  margin: 4rem auto;
+  padding: 2rem 1.5rem;
+  background-color: #ffffff;
+  font-family: 'Segoe UI', sans-serif;
+  color: #1a1a1a;
+  line-height: 1.8;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
 
+/* === Header Section === */
+.message-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
 
-.chairman-message-container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 40px;
-    background-color: #f8f9fa;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;
-    line-height: 1.8;
+.message-header h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #003566;
+  margin-bottom: 0.3rem;
+  margin-top: -2rem;
+}
+
+.message-header .underline {
+  width: 80px;
+  height: 4px;
+  background-color: #0077b6;
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* === Body Content === */
+.message-body p {
+  font-size: 1.1rem;
+  margin-bottom: 1.8rem;
+  text-align: justify;
+  color: #333;
+}
+
+/* === Signature === */
+.chair-signature {
+  margin-top: 2.5rem;
+  text-align: right;
+  font-style: italic;
+  color: #003566;
+  font-weight: 500;
+}
+
+.chair-signature p {
+  margin: 0;
+}
+
+/* === Responsive === */
+
+@media (max-width: 768px) {
+  .chairman-message-wrapper {
+    margin: 2.5rem 1rem;
+    padding: 1.8rem 1.2rem;
   }
-  
-  .chairman-message-container h1 {
-    font-size: 2.2rem;
-    margin-bottom: 24px;
-    color: #1a237e;
-    text-align: center;
-    position: relative;
+
+  .message-header h1 {
+    font-size: 2rem;
   }
-  
-  .chairman-message-container h1::after {
-    content: '';
-    display: block;
-    margin: 12px auto 0;
-    width: 80px;
-    height: 4px;
-    background-color: #1a237e;
-    border-radius: 2px;
+
+  .message-body p {
+    font-size: 1rem;
   }
-  
-  .chairman-message-container p {
-    margin-bottom: 20px;
-    font-size: 1.05rem;
+
+  .chair-signature {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chairman-message-wrapper {
+    margin: 2rem 0.8rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .message-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .message-body p {
+    font-size: 0.95rem;
+    margin-bottom: 1.4rem;
+    letter-spacing: 0.5px;
     text-align: justify;
   }
-  
-  
-  .chairman-message-container p:last-of-type {
-    margin-top: 30px;
-    white-space: pre-line;
+
+  .chair-signature {
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 2rem;
   }
-  
+}

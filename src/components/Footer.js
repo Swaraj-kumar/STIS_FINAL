@@ -1,154 +1,90 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaTwitter, FaInstagram, FaLinkedin, FaFacebook } from 'react-icons/fa';
-import { ref, onValue, get, update, runTransaction } from 'firebase/database';
+import { FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { ref, onValue, runTransaction } from 'firebase/database';
 import { database } from '../firebase/firebase-config';
 import './Footer.css';
 
 const Footer = () => {
-    const [visitorCount, setVisitorCount] = useState(0);
-    const [displayCount, setDisplayCount] = useState(0);
-    const countingRef = useRef(null);
-    const initialLoadRef = useRef(true);
-    const hasIncrementedRef = useRef(false);  // Track if we've already incremented
+  const [visitorCount, setVisitorCount] = useState(0);
+  const [displayCount, setDisplayCount] = useState(0);
+  const countingRef = useRef(null);
 
-    const animateCount = (start, end, duration = 2000) => {
-        if (countingRef.current) {
-            clearInterval(countingRef.current);
-        }
+  useEffect(() => {
+    const countRef = ref(database, 'visitors/count');
+    const sessionKey = 'visitRecorded';
 
-        const startTime = Date.now();
-        const difference = end - start;
+    onValue(countRef, (snapshot) => {
+      const count = snapshot.val() || 0;
+      setVisitorCount(count);
+      setDisplayCount(count);
+    });
 
-        countingRef.current = setInterval(() => {
-            const now = Date.now();
-            const elapsed = now - startTime;
+    if (!sessionStorage.getItem(sessionKey)) {
+      runTransaction(countRef, (current) => (current || 0) + 1);
+      sessionStorage.setItem(sessionKey, 'true');
+    }
 
-            if (elapsed >= duration) {
-                setDisplayCount(end);
-                clearInterval(countingRef.current);
-                return;
-            }
+    return () => clearInterval(countingRef.current);
+  }, []);
 
-            const progress = elapsed / duration;
-            const currentCount = Math.floor(start + difference * progress);
-            setDisplayCount(currentCount);
-        }, 16);
-    };
+  return (
+    <footer className="footer">
+      <div className="footer-container">
+        {/* Column 1: Logo & Info */}
+        <div className="footer-column brand-column">
+          <div className="logo-box">
+            <img src="https://iisc.ac.in/wp-content/themes/iisc/images/favicon/apple-icon-57x57.png" alt="STIS-V" />
+            <h2>STIS-V 2025</h2>
+          </div>
+          <p className="tagline">Advancing Innovation in Iron & Steelmaking</p>
+          <p><strong>Hosted by:</strong> IISc, Bengaluru</p>
+          <p><strong>Dates:</strong> Dec 9–12, 2025</p>
+          <p><strong>Email:</strong> <a href="mailto:stis.mte@iisc.ac.in">stis.mte@iisc.ac.in</a></p>
+        </div>
 
-    useEffect(() => {
-        if (!database) {
-            console.error('Database not initialized');
-            return;
-        }
+        {/* Column 2: Quick Links */}
+        <div className="footer-column footer-links">
+          <h4>Quick Links</h4>
+          <div className="footer-links-grid">
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/about">About</NavLink>
+            <NavLink to="/programme">Programme</NavLink>
+            <NavLink to="/distinguished-speaker">Speakers</NavLink>
+            <NavLink to="/committee">Committee</NavLink>
+            <NavLink to="/conference-schedule">Schedule</NavLink>
+            <NavLink to="/conference-proceedings">Proceedings</NavLink>
+            <NavLink to="/venue">Venue</NavLink>
+            <NavLink to="/announcements">Announcements</NavLink>
+            <NavLink to="/contact">Contact</NavLink>
+          </div>
+        </div>
 
-        const visitorCountRef = ref(database, 'visitors/count');
+        {/* Column 3: Socials & Visitors */}
+        <div className="footer-column connect-column">
+          <h4>Stay Connected</h4>
+          <div className="social-icons">
+            <a href="https://x.com/stis_v2025" target="_blank"  className='twitter'  rel="noopener noreferrer"><FaTwitter /></a>
+            <a href="https://www.instagram.com/stisv25/" target="_blank"  className='instagram' rel="noopener noreferrer"><FaInstagram /></a>
+            <a href="https://www.linkedin.com/in/stis-v-221269344/" target="_blank" className='linkedin' rel="noopener noreferrer"><FaLinkedin /></a>
+          </div>
+          <p className="social-note">
+            Follow us for updates on deadlines, keynotes, and more.
+          </p>
+          <div className="visitor-box">
+            <h4>Conference Reach</h4>
+            <span>{String(displayCount).padStart(4, '0')} Website Visits So Far</span>
+          </div>
+        </div>
+      </div>
 
-        const updateVisitorCount = async () => {
-            const sessionKey = 'visitRecorded';
-
-            // Check both session storage and our ref to prevent double counting
-            if (!sessionStorage.getItem(sessionKey) && !hasIncrementedRef.current) {
-                try {
-                    // Use transaction to ensure atomic increment
-                    await runTransaction(visitorCountRef, (currentCount) => {
-                        if (currentCount === null) return 37;  // Initial value if database is empty
-                        return currentCount + 1;  // Increment by exactly 1
-                    });
-
-                    // Mark as incremented in both session storage and ref
-                    sessionStorage.setItem(sessionKey, 'true');
-                    hasIncrementedRef.current = true;
-
-                    console.log('Visit recorded successfully');
-                } catch (error) {
-                    console.error('Error updating visitor count:', error);
-                }
-            }
-        };
-
-        // Listen for real-time updates
-        const unsubscribe = onValue(visitorCountRef, (snapshot) => {
-            const newCount = snapshot.val();
-            if (newCount !== null) {
-                if (initialLoadRef.current) {
-                    setVisitorCount(newCount);
-                    setDisplayCount(newCount);
-                    initialLoadRef.current = false;
-                    // Only try to increment after we have the initial value
-                    updateVisitorCount();
-                } else if (newCount !== visitorCount) {
-                    setVisitorCount(newCount);
-                    animateCount(displayCount, newCount);
-                }
-            }
-        }, (error) => {
-            console.error('Error reading visitor count:', error);
-        });
-
-        return () => {
-            unsubscribe();
-            if (countingRef.current) {
-                clearInterval(countingRef.current);
-            }
-        };
-    }, [visitorCount, displayCount]);
-
-    const handleLinkClick = () => {
-        window.scrollTo(0, 0);
-    };
-
-    return (
-        <footer className="footer">
-            <div className="footer-content">
-                <div className="footer-left">
-                    <div className="footer-logo">
-                        <img src='https://iisc.ac.in/wp-content/themes/iisc/images/favicon/apple-icon-57x57.png' alt="STIS 2025 Logo" />
-                        <span>STIS-V - 2025</span>
-                    </div>
-                    <div className="footer-info">
-                        <p><strong>Location:</strong> IISc Bengaluru, India</p>
-                        <p><strong>Date:</strong> December 9 - 12, 2025</p>
-                        <p><strong>Telephone:</strong> +91 80 22933240</p>
-                        <p><strong>Email:</strong> stis.mte@iisc.ac.in</p>
-                    </div>
-                </div>
-                <div className="footer-center">
-                    <span>Jump To :</span>
-                    <div className="footer-links">
-                        <NavLink to="/" onClick={handleLinkClick}>Home</NavLink>
-                        <NavLink to="/about" onClick={handleLinkClick}>About</NavLink>
-                        <NavLink to="/distinguished-speaker" onClick={handleLinkClick}>Speakers</NavLink>
-                        <NavLink to="/programme" onClick={handleLinkClick}>Programme</NavLink>
-                        <NavLink to="/register" onClick={handleLinkClick}>Registration</NavLink>
-                        <NavLink to="/conference-proceedings" onClick={handleLinkClick}>Conference Proceeding</NavLink>
-                        <NavLink to="/conference-themes" onClick={handleLinkClick}>Conference Themes</NavLink>
-                        <NavLink to="/committee" onClick={handleLinkClick}>Committee</NavLink>
-                        <NavLink to="/venue" onClick={handleLinkClick}>Venue</NavLink>
-                        <NavLink to="/sponsors" onClick={handleLinkClick}>Sponsors</NavLink>
-                        <NavLink to="/contact" onClick={handleLinkClick}>Contact</NavLink>
-                        <NavLink to="/downloads" onClick={handleLinkClick}>Downloads</NavLink>
-                    </div>
-                </div>
-                <div className="footer-right">
-                    <span>Connect with Us : <br /></span>
-                    <div className="footer-social">
-                        <br />
-                        <a href="https://x.com/stis_v2025" target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
-                        <a href="https://www.instagram.com/stisv25/" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
-                        <a href="https://www.linkedin.com/in/stis-v-221269344/" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
-                        {/* <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a> */}
-                    </div>
-                </div>
-            </div>
-            <div className="footer-bottom">
-                <hr className="footer-divider" />
-                <p>&copy; STIS-V - 2025, All Rights Reserved</p>
-                <p className='animesh'>Designed by:<a href='https://www.linkedin.com/in/animeshk13/' className='designer-link'> Animesh Kumar</a></p>
-                <p>Visitors: <span id="visitor-count">{displayCount.toString().padStart(4, '0')}</span></p>
-            </div>
-        </footer>
-    );
+      {/* Footer Bottom */}
+      <div className="footer-base">
+        <p>&copy; {new Date().getFullYear()} STIS-V 2025. All rights reserved.</p>
+      
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;

@@ -1,71 +1,90 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Travel.css';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 const Travel = () => {
-    return (
-        <div className="travel-container">
-            <div className="travel-content">
-                <h1>Conference Travel Information</h1>
+  return (
+    <>
+        <Navbar />
+    <div className="travel-container">
+      <div className="travel-hero">
+        <h1 className="travel-title">Conference Travel Essentials</h1>
+        <p className="travel-subtitle">
+          Everything you need to know to reach and move around Bengaluru smoothly.
+        </p>
+      </div>
 
-                <section className="travel-checklist">
-                    <h2>Travel Information</h2>
-                    <ul className="travel-links">
-                        <li>
-                            <Link to="/travel-checklist" className="travel-nav-link">
-                                Travel Checklist ->
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/international-travel" className="travel-nav-link">
-                                International Travel to Bengaluru ->
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/transport" className="travel-nav-link">
-                                Transport from/to the new BIAL Airport ->
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/local-bengaluru" className="travel-nav-link">
-                                Getting around Bengaluru ->
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/electricity" className="travel-nav-link">
-                                Electrical Specifications in India ->
-                            </Link>
-                        </li>
-                        {/* <li>
-                            <Link to="/travel-info" className="travel-nav-link">
-                                Additional Travel Information ->
-                            </Link>
-                        </li> */}
-                    </ul>
-                </section>
+      <div className="travel-section">
+        <h2 className="section-heading">Travel Resources</h2>
+        <ul className="travel-list">
+          <li>
+            <Link to="/travel-checklist" className="travel-link">
+              Travel Checklist
+            </Link>
+          </li>
+          <li>
+            <Link to="/international-travel" className="travel-link">
+              International Travel to Bengaluru
+            </Link>
+          </li>
+          <li>
+            <Link to="/transport" className="travel-link">
+              Airport Transfers & Transport
+            </Link>
+          </li>
+          <li>
+            <Link to="/local-bengaluru" className="travel-link">
+              Getting Around Bengaluru
+            </Link>
+          </li>
+          <li>
+            <Link to="/electricity" className="travel-link">
+              Electrical Specifications in India
+            </Link>
+          </li>
+        </ul>
+      </div>
 
-                <section className="airport-info">
-                    <h2>Airport Information</h2>
-                    <p>The new Bengaluru International Airport is located 35 kms from the city.
-                        For detailed information, visit the official airport website:
-                        <a href="http://www.bengaluruairport.com/" className="airport-link">
-                            www.bengaluruairport.com
-                        </a></p>
-                </section>
+      <div className="travel-section">
+        <h2 className="section-heading">Airport Information</h2>
+        <p className="travel-text">
+          Bengaluru’s Kempegowda International Airport (BLR) is located ~35 km from the city center.
+          Delegates can find detailed flight and terminal info on the official website:
+        </p>
+        <a
+          href="http://www.bengaluruairport.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="external-link"
+        >
+          www.bengaluruairport.com →
+        </a>
+      </div>
 
-                <section className="tour-packages">
-                    <h2>Rail Tour Packages</h2>
-                    <p>Take this opportunity to explore other Indian cities. Book e-tickets through
-                        Indian Railway Catering and Tourism Corporation.
-                        <a href="https://www.irctc.co.in/nget/train-search" className="airport-link">
-                            Book now !</a><br />
-                        The Rail tour packages offer selection on attractive theme categories, such as: <strong>Adventure, Spiritual, Wildlife, Heritage, Hills, etc.</strong>
-                    </p>
-                    <p></p>
-                </section>
-            </div>
-        </div>
-    );
+      <div className="travel-section">
+        <h2 className="section-heading">Rail Tour Packages</h2>
+        <p className="travel-text">
+          Planning to explore India after the conference? Book railway tickets and curated rail tour
+          packages via the Indian Railway Catering & Tourism Corporation (IRCTC). Options include:
+          <strong> Heritage, Spiritual, Adventure, Wildlife & Hill Station themes.</strong>
+        </p>
+        <a
+          href="https://www.irctc.co.in/nget/train-search"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="external-link"
+        >
+          Explore IRCTC Rail Tours →
+        </a>
+      </div>
+    </div>
+    <br />
+    <br />
+    <Footer />
+    </>
+  );
 };
 
 export default Travel;

@@ -1,136 +1,186 @@
+/* Travel Container */
 .travel-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 80vh;
-    padding: 80px 20px;
+    padding: 4rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: whitesmoke;
-}
-
-.travel-content {
-    width: 100%;
-    max-width: 800px;
-    animation: fadeIn 1s ease-out;
-}
-
-.travel-content h1 {
-    font-size: 2.5rem;
-    color: #1a1a1a;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2c3e50;
+  }
+  
+  /* Hero Section */
+  .travel-hero {
     text-align: center;
-    margin-bottom: 50px;
-    position: relative;
-    padding-bottom: 15px;
-    animation: fadeInUp 1.5s ease-out, pulse 2s infinite;
-}
-
-.travel-content h1::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: linear-gradient(to right, #3498db, #2c3e50);
-}
-
-.travel-content section {
-    margin-bottom: 40px;
-    background-color: white;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.travel-content h2 {
-    color: #34495e;
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-}
-
-.travel-content p {
-    line-height: 1.6;
+    margin-bottom: 3rem;
+    animation: fadeInDown 1s ease-out;
+  }
+  
+  .travel-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #003566;
+    margin-bottom: 0.5rem;
+  }
+  
+  .travel-subtitle {
+    font-size: 1.2rem;
     color: #555;
-    margin-bottom: 15px;
-}
-
-.travel-links,
-.theme-list {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  /* Section Headings */
+  .travel-section {
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.6s ease;
+  }
+  
+  .section-heading {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #00509d;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    border-left: 4px solid #0077b6;
+    padding-left: 0.75rem;
+  }
+  
+  /* Travel Links */
+  .travel-list {
     list-style: none;
     padding: 0;
-}
-
-.travel-links li,
-.theme-list li {
-    padding: 10px 0;
-    color: #555;
-    border-bottom: 1px solid #eee;
-    transition: color 0.3s ease;
-}
-
-.travel-links li:hover,
-.theme-list li:hover {
-    color: #3498db;
-}
-
-.airport-link {
-    color: #3498db;
+    margin: 0;
+  }
+  
+  .travel-list li {
+    margin-bottom: 0.75rem;
+  }
+  
+  .travel-link {
+    font-size: 1.1rem;
+    color: #0077b6;
     text-decoration: none;
-    margin-left: 5px;
+    font-weight: 500;
     transition: color 0.3s ease;
-}
-
-.airport-link:hover {
-    color: #2980b9;
-}
-
-@keyframes fadeIn {
+  }
+  
+  .travel-link:hover {
+    color: #023e8a;
+    text-decoration: underline;
+  }
+  
+  /* External Links */
+  .external-link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 1.05rem;
+    color: #0077b6;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .external-link:hover {
+    color: #023e8a;
+    border-color: #023e8a;
+  }
+  
+  /* Paragraphs */
+  .travel-text {
+    font-size: 1.05rem;
+    color: #444;
+    line-height: 1.8;
+    max-width: 900px;
+  }
+  
+  /* Animations */
+  @keyframes fadeInDown {
     from {
-        opacity: 0;
-        transform: translateY(20px);
+      opacity: 0;
+      transform: translateY(-20px);
     }
-
     to {
-        opacity: 1;
-        transform: translateY(0);
+      opacity: 1;
+      transform: translateY(0);
     }
-}
-
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* ===============================
+   Responsive Design - Tablets (≤768px)
+================================ */
 @media (max-width: 768px) {
     .travel-container {
-        padding: 30px 15px;
+      padding: 3rem 1.5rem;
     }
-
-    .travel-content h1 {
-        font-size: 2rem;
+  
+    .travel-title {
+      font-size: 2.2rem;
     }
-
-    .travel-content h2 {
-        font-size: 1.5rem;
+  
+    .travel-subtitle {
+      font-size: 1.05rem;
     }
-
-    .travel-content section {
-        padding: 20px;
-        margin-bottom: 25px;
+  
+    .section-heading {
+      font-size: 1.5rem;
     }
-}
-
-.travel-nav-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
-.travel-nav-link:hover {
-    cursor: pointer;
-}
-
-.travel-links li:hover .travel-nav-link {
-    color: #3498db;
-}
+  
+    .travel-text {
+      font-size: 1rem;
+    }
+  
+    .travel-link {
+      font-size: 1rem;
+    }
+  
+    .external-link {
+      font-size: 1rem;
+    }
+  }
+  
+  
+  /* ===============================
+     Responsive Design - Phones (≤480px)
+  ================================ */
+  @media (max-width: 480px) {
+    .travel-container {
+      padding: 2.5rem 1rem;
+    }
+  
+    .travel-title {
+      font-size: 1.8rem;
+    }
+  
+    .travel-subtitle {
+      font-size: 1rem;
+    }
+  
+    .section-heading {
+      font-size: 1.3rem;
+      padding-left: 0.5rem;
+    }
+  
+    .travel-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+  
+    .travel-link,
+    .external-link {
+      font-size: 0.95rem;
+    }
+  }
+  
