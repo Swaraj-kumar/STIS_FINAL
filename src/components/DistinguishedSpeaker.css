@@ -87,13 +87,14 @@
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
-  text-decoration: none;
+  text-decoration: none!important;
   color: inherit;
 }
 
 .speaker-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #0077b6;
 }
 
 .speaker-avatar img {
@@ -107,6 +108,32 @@
 .speaker-info {
   padding: 1rem;
 }
+
+/* ================================
+   Carousel Auto-Scroll Support Enhancements
+================================== */
+
+/* Prevent scroll snapping when using JS auto-scroll */
+.carousel {
+  scroll-snap-type: none;
+}
+
+/* Optional: smooth pause-on-hover (if JS adds this later) */
+.carousel:hover {
+  scroll-behavior: auto;
+}
+
+/* Support looping visuals: hide overflow bleed */
+.carousel-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+/* For buttons staying on top of carousel content */
+.carousel-btn {
+  z-index: 2;
+}
+
 
 .speaker-info h4 {
   font-size: 1rem;

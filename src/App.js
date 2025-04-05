@@ -20,7 +20,7 @@ import Sponsors from './components/Sponsors';
 import Contact from './components/Contact';
 import Announcements from './components/Announcements';
 import ConferenceSchedule from './components/ConferenceSchedule';
-
+import MediaPartner from './components/Mediapartner';
 import Accomodation from './components/Accomodation';
 import Tours from './components/Tours';
 import Travel from './components/Travel';
@@ -61,7 +61,7 @@ const router = createBrowserRouter(
       <Route path="/contact" element={<Contact />} />
       <Route path="/announcements" element={<Announcements />} />
       <Route path="/conference-schedule" element={<ConferenceSchedule />} />
-      
+      <Route path="/mediapartners" element={<MediaPartner />} />
       
       <Route path="/accomodation" element={<Accomodation />} />
       <Route path="/tours-and-social-events" element={<Tours />} />

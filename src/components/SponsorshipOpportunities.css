@@ -151,6 +151,8 @@
 
   .sponsorship-cards {
     gap: 1.5rem;
+    flex-direction: column;
+    flex-wrap: wrap;
   }
 
   .sponsor-card {

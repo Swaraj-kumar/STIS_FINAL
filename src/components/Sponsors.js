@@ -5,7 +5,6 @@ import Footer from './Footer';
 
 const SponsorsSection = () => {
   const [imageError, setImageError] = useState(false);
-  const [mediaError, setMediaError] = useState(false);
 
   const sponsorInfo = {
     name: 'RESCONS Solutions Pvt. Limited',
@@ -14,26 +13,18 @@ const SponsorsSection = () => {
     imageUrl: 'https://raw.githubusercontent.com/kmranimesh/Web-dev-toolkit/main/rescons_logo%20.jpg',
   };
 
-  const mediaPartner = {
-    name: 'All Conference Alert',
-    location: 'Media Partner',
-    website: 'https://allconferencealert.net/',
-    imageUrl: 'https://raw.githubusercontent.com/VishwasPrabhakara/STISV/refs/heads/main/public/All-conference-alert.png', // Add logo raw URL here
-  };
-
   return (
     <>
       <Navbar />
       <div className="sponsors-wrapper">
         {/* Header */}
         <div className="sponsors-header">
-          <h1>Our Esteemed Sponsors & Media Partner</h1>
-          <p>We proudly partner with industry leaders and global outreach platforms to promote innovation and visibility.</p>
+          <h1>Our Esteemed Sponsor</h1>
+          <p>We proudly partner with industry leaders to promote innovation and visibility.</p>
         </div>
 
-        {/* Sponsor Cards Side-by-Side */}
+        {/* Sponsor Card */}
         <div className="sponsor-cards-row">
-          {/* Sponsor */}
           <div className="sponsor-card">
             {!imageError ? (
               <div className="sponsor-logo">
@@ -53,35 +44,6 @@ const SponsorsSection = () => {
               <p className="sponsor-location">{sponsorInfo.location}</p>
               <a
                 href={sponsorInfo.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="visit-button"
-              >
-                Visit Website →
-              </a>
-            </div>
-          </div>
-
-          {/* Media Partner */}
-          <div className="sponsor-card">
-            {!mediaError && mediaPartner.imageUrl ? (
-              <div className="sponsor-logo">
-                <img
-                  src={mediaPartner.imageUrl}
-                  alt="Media Partner Logo"
-                  onError={() => setMediaError(true)}
-                />
-              </div>
-            ) : (
-              <div className="fallback-image">
-                <p>{mediaPartner.name}</p>
-              </div>
-            )}
-            <div className="sponsor-details">
-              <h3>{mediaPartner.name}</h3>
-              <p className="sponsor-location">{mediaPartner.location}</p>
-              <a
-                href={mediaPartner.website}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="visit-button"

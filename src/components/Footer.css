@@ -156,6 +156,7 @@
 @media (max-width: 768px) {
   .footer {
     padding: 30px 20px 20px;
+    
   }
 
   .footer-container {
@@ -215,8 +216,9 @@
     font-size: 1rem;
   }
 
-  .tagline {
+  .footer .tagline {
     font-size: 0.8rem;
+    margin-left: 10px!important;
     
   }
 

@@ -54,6 +54,7 @@ const Navbar = () => {
           <span>STIS-V 2025</span>
         </div>
 
+        {/* Desktop Auth Buttons */}
         <div className="navbar-auth">
           {userName ? (
             <div className="navbar-user">
@@ -69,11 +70,13 @@ const Navbar = () => {
           )}
         </div>
 
+        {/* Mobile Toggle Button */}
         <div className="navbar-toggle" onClick={toggleMobileMenu}>
           ☰
         </div>
       </div>
 
+      {/* Navigation Menu */}
       <nav className={`navbar-menu ${isMobileOpen ? "active" : ""}`}>
         <NavLink to="/" onClick={() => handleNavClick("/")}>Home</NavLink>
 
@@ -82,7 +85,8 @@ const Navbar = () => {
           { to: "/message-to-chairman", label: "Chairman's Message" },
           { to: "/official-language", label: "Official Language" },
           { to: "/announcements", label: "Announcements" },
-          { to: "/sponsors", label: "Sponsors" }
+          { to: "/sponsors", label: "Sponsors" },
+          { to: "/mediapartners", label: "Media Partner" }
         ])}
 
         {renderDropdown("Programme", [
@@ -126,6 +130,24 @@ const Navbar = () => {
           { to: "/travel-information", label: "Travel Information" },
           { to: "/tours-and-social-events", label: "Tours & Social Events" }
         ])}
+
+        {/* Mobile Auth Buttons */}
+        {isMobileOpen && (
+          <div className="navbar-auth-mobile">
+            {userName ? (
+              <div className="navbar-user">
+                <span className="user-badge">
+                  {userName.split(" ").map(w => w[0]).join("").toUpperCase()}
+                </span>
+                <a className="logout-btn" onClick={handleLogout}>Logout</a>
+              </div>
+            ) : (
+              <NavLink to="/login-signup" onClick={() => handleNavClick("/login-signup")}>
+                Login / Signup
+              </NavLink>
+            )}
+          </div>
+        )}
       </nav>
     </header>
   );

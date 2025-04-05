@@ -197,7 +197,7 @@
 /* =============================
    Responsive Design - Phones
 ============================= */
-@media (max-width: 360px) {
+@media (max-width: 480px) {
   .hero-title {
     font-size: 1.2rem;
   }
@@ -230,11 +230,12 @@
   .countdown-wrapper {
     flex-direction: row;
     align-items: center;
-    width: 25%;
+    flex-wrap: nowrap;
+    width: 100%;
   }
 
   .countdown-box {
-    min-width: 60px;
+    min-width: 30px;
   }
 
   .countdown-value {
